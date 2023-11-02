@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;1,400&display=swap');
+
+header{
+    background-color: #a398e4;
+    
+}
+
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.navbar{
+    width: 1400px;
+    margin: 0 auto;
+    padding: 38px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo{
+    color: black;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.navbar .logo::after{
+    content: 'Plus';
+    color: #F9F8F8;
+}
+
+.navbar .nav-list li{
+    display: inline;
+    margin-left: 40px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-list li:first-of-type{
+    margin-left: 0;
+}
+
+.navbar .nav-list li:hover, .navbar .nav-list li:active{
+    color: white;
+    border-bottom: 1px solid white;
+}
+
+a {
+    text-decoration: none;
+}
+
+.navbar .nav-list li a:visited{
+    color: initial;
+}
+
+.navbar .nav-list li:hover a,
+.navbar .nav-list li:active a {
+    color: white;
+}
+
+.navbar .nav-list li:hover a:visited,
+.navbar .nav-list li:active a:visited {
+    color: white;
+    /* Цвет посещенной ссылки при наведении или активном состоянии */
+}
+
+.navbar .nav-btn .btn-log{
+    padding: 12px 20px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    background-color: #c2b8fd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-btn .btn-log:hover{
+    background-color: #8477d1;
+    color: rgba(255, 255, 255, 0.801);
+}
+
+.navbar .nav-btn .btn-sign{
+    color: #000;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 17px;
+    background: #F1BD20;
+    border: none;
+    padding: 12px 20px;
+    margin-left: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+.navbar .nav-btn .btn-sign:hover{
+    background-color: #d49f00;
+    color: rgba(255, 255, 255, 0.801);
+}   
+
+.navbar {
+    position: relative;
+}
+
+.presentation {
+    background-image: url(https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=2132&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    height: 600px;
+    background-color: rgb(107, 107, 107);
+    width: 100%;
+    position: relative;
+    /* Измените высоту на ваш выбор */
+}
+
+.presentation::before{
+    content: 'Выучите английский с нами и гарантированно сдайте ЕГЭ на высокий балл!';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    width: 680px;
+    text-align: center;
+    color: #ffffff;
+}
+.start-learning {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #ED6316;
+    padding: 20px;
+    border-radius: 69px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    background-color: rgba(237, 97, 22, 0.227);
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+.presentation:hover .start-learning:hover {
+    background-color: #ED6316;
+}

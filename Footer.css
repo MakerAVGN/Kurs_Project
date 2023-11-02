@@ -1,0 +1,23 @@
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    background-color: #BFCDE0;
+}
+
+.vk-icon {
+    text-align: center;
+   width: 50%;
+    margin-right: 10px; 
+}
+
+.vk-icon:visited{
+    color: initial;
+}
+
+.team-name {
+    text-align: center;
+    width: 50%;
+}
+
