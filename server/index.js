@@ -1,9 +1,25 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
-const app = express();
-const cors = require("cors");
+// const cors = require("cors");
 const path = require("path");
+const app = express();
+require("dotenv").config();
+
+const { createAgent } = require("@forestadmin/agent");
+const { createSqlDataSource } = require("@forestadmin/datasource-sql");
+
+// Create your Forest Admin agent
+// This must be called BEFORE all other middleware on the app
+createAgent({
+  authSecret: process.env.FOREST_AUTH_SECRET,
+  envSecret: process.env.FOREST_ENV_SECRET,
+  isProduction: process.env.NODE_ENV === "production",
+})
+  // Create your SQL datasource
+  .addDataSource(createSqlDataSource(process.env.DATABASE_URL))
+  .mountOnExpress(app)
+  .start();
 
 // app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
@@ -13,6 +29,8 @@ app.get("/", (req, res) => {
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Database connection
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -39,6 +57,10 @@ db.query(
     }
   }
 );
+
+app.get("/admin", (req, res) => {
+  res.redirect("https://app.forestadmin.com/");
+});
 
 app.post("/submit-form", (req, res) => {
   let name = req.body.name;
