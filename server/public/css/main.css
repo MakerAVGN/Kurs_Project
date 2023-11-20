@@ -1,0 +1,159 @@
+.width-container {
+    text-align: center;
+    max-width: 1400px;
+    /* изменено на max-width вместо width */
+    margin: 0 auto;
+  }
+  
+  .center-text {
+    margin: 10px 0;
+    color: #000;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+  }
+  
+  .container {
+    width: 20%;
+    min-width: 400px;
+    height: 140px;
+    margin: 0 15px 50px;
+    padding: 25px 30px;
+    border-radius: 12px;
+    background: #b8b2ff;
+    text-align: left;
+    box-sizing: border-box;
+    transition: scale 0.1s ease;
+  }
+  .container:nth-child(1),
+  .container:nth-child(4) {
+    margin-left: 0;
+  }
+  
+  .container:hover {
+    scale: 1.1;
+  }
+  
+  .container h3 {
+    color: #000;
+    font-size: 25px;
+    font-weight: 600;
+    margin: 10px 0;
+  }
+  
+  .container p {
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 10px 0;
+  }
+  
+  .main-container {
+    width: 100%;
+    background-color: #a398e4;
+  }
+  
+  .main-container.white {
+    width: 100%;
+    background-color: #ffffff;
+  }
+  
+  .image-block {
+    margin: 45px 0;
+  }
+  .image-block img {
+    border-radius: 16px;
+  }
+  
+  .text-block {
+    grid-column: span 2;
+    margin-top: 50px;
+    margin-left: 50px;
+    text-align: left;
+  }
+  
+  .text-block h2 {
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+  
+  .text-block p {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 33px;
+  }
+  
+  .image-block img {
+    max-width: 100%;
+  }
+  
+  .container-wrapper {
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr;
+    grid-gap: 20px;
+  }
+  
+  .container-wrapper.two {
+    display: grid;
+    grid-template-columns: 2fr 1fr 3fr;
+    grid-gap: 20px;
+  }
+  
+  .btn-main {
+    border: none;
+    padding: 20px 38px;
+    border-radius: 69px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(3, 3, 3, 0.3);
+    background-color: #ed6316;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    font-size: 14px;
+  }
+  
+  .btn-main:hover {
+    background-color: #ffbe0b;
+    color: #160c28;
+    margin-left: 10px;
+  }
+
+  .btn-main-wrapper{
+    margin-top: 10px;
+  }
+  
+  .form-main {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  label,
+  input,
+  button {
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+  
+  form input {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    border-radius: 38px;
+    border: 2px #ced8df solid;
+    text-align: left;
+  }
+  
+  form input:first-of-type {
+    margin-left: -10px;
+  }
+  
+  form input:focus {
+    border-color: #ed6316;
+    outline: none;
+  }
+  

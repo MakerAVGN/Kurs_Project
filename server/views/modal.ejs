@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+<body>
+    <div class="modal">
+          <form >
+            <div class="modal-content" >
+              <label htmlFor="name"></label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Введите ваше имя"
+              />
+              <label htmlFor="phone"></label>
+              <Input
+                mask="+7 (999) 999-99-99"
+                maskChar="_"
+                id="phone"
+                name="phone"
+                placeholder="+7 (999) 999-99-99"
+              />
+              <div class="btn-main-wrapper">
+                <button type="submit" class="btn-main">
+                  Отправить заявку
+                </button>
+              </div>
+            </div>
+          </form>
+      </div>
+      <script>
+        const modalEl = document.querySelector(".modal")
+        const buttonEl = document.querySelector('.btn-log')
+        buttonEl.addEventListener("click", () => {
+        console.log("hello ASDASDASD!")
+        });
+      </script>
+</body>
+</html>
