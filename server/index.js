@@ -1,10 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
-// const cors = require("cors");
 const path = require("path");
 const app = express();
+
 require("dotenv").config();
+app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
+app.set("view engine", "ejs");
 
 const { createAgent } = require("@forestadmin/agent");
 const { createSqlDataSource } = require("@forestadmin/datasource-sql");
@@ -22,10 +25,10 @@ createAgent({
   .start();
 
 // app.use(cors());
-app.use(express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -37,6 +40,7 @@ const db = mysql.createConnection({
   user: "root",
   password: "root",
   database: "testovaya",
+  port: 3306,
 });
 
 db.connect((err) => {
@@ -46,9 +50,12 @@ db.connect((err) => {
 
 db.query(
   `CREATE TABLE IF NOT EXISTS students (
-    StudentID INT NOT NULL,
-    Name VARCHAR(255) NOT NULL,
-    Phone VARCHAR(255) NOT NULL,
+    studentID INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    surname VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    profile_pic VARCHAR(255) NULL,
     PRIMARY KEY (StudentId)
   )`,
   (err, result) => {
@@ -58,30 +65,94 @@ db.query(
   }
 );
 
+db.query(`CREATE TABLE IF NOT EXISTS results (
+  ResultID INT NOT NULL,
+  StudentID INT NOT NULL,
+  TaskName VARCHAR(255) NOT NULL,
+  Points INT NOT NULL,
+  Status VARCHAR(255) NOT NULL,
+  PRIMARY KEY (ResultID)
+)`);
+
 app.get("/admin", (req, res) => {
   res.redirect("https://app.forestadmin.com/");
 });
 
-app.post("/submit-form", (req, res) => {
+app.post("/register", (req, res) => {
   let name = req.body.name;
-  let phone = req.body.phone;
-  let nextStudentID;
-  let sql = "SELECT MAX(StudentID) AS maxId FROM students";
-  db.query(sql, function (err, results) {
-    if (err) throw err;
-    if (results[0].maxId === null) {
-      // код проверки есть ли записи в нашей базе данных
+  let surname = req.body.surname;
+  let email = req.body.email;
+  let password = req.body.password;
+  let sql = "SELECT StudentID FROM students ORDER BY StudentID";
+  db.query(sql, (err, results) => {
+    if (err) {
+      res.status(500).send("Internal Server Error");
+      throw err;
+    }
+    let nextStudentID;
+    if (results.length === 0 || results[0].StudentID !== 0) {
+      // Если база данных пуста или первый элемент не 0, начинаем с 0
       nextStudentID = 0;
     } else {
-      nextStudentID = results[0].maxId + 1;
+      // Ищем первый пропущенный номер в последовательности
+      for (let i = 0; i < results.length; i++) {
+        if (results[i].StudentID !== i) {
+          nextStudentID = i;
+          break;
+        }
+      }
+      // Если пропущенный номер не найден, используем следующий последовательный ID
+      if (nextStudentID === undefined) {
+        nextStudentID = results.length;
+      }
     }
-    let sql = `INSERT INTO students (StudentID, Name, Phone) VALUES (?, ?, ?)`;
-    let params = [nextStudentID, name, phone];
-
-    db.query(sql, params, function (err, result) {
-      if (err) throw err;
+    let insertSql = `INSERT INTO students (studentID, name, surname, email, password) VALUES (?, ?, ?, ?, ?)`;
+    let params = [nextStudentID, name, surname, email, password];
+    db.query(insertSql, params, (err, result) => {
+      if (err) {
+        res.status(500).send("Internal Server Error");
+        throw err;
+      }
+      // Отправляем успешный ответ клиенту
+      res.status(200).send("User added successfully");
     });
   });
+});
+
+app.post("/login", (req, res) => {
+  let email = req.body.email;
+  let password = req.body.password;
+  let sql = `SELECT studentID FROM students WHERE email = ? AND password = ?`;
+  db.query(sql, [email, password], (err, results) => {
+    if (err) {
+      res.status(500).send("Error retrieving student details");
+      throw err;
+    }
+    if (results.length === 0) {
+      res.status(401).send("User not found");
+    } else {
+      res.status(200);
+      res.redirect(`/cabinet/${results[0].studentID}`);
+    }
+  });
+});
+
+app.get("/cabinet/:id", (req, res) => {
+  let id = req.params.id;
+  db.query(
+    `SELECT * from results WHERE StudentID = ?`,
+    [id],
+    (err, results) => {
+      if (err) {
+        res.status(500).send("Error retrievent student details");
+        throw err;
+      } else {
+        res.render("cabinet", {
+          taskInfo: results,
+        });
+      }
+    }
+  );
 });
 
 app.listen(5000, () => {

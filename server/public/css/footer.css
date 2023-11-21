@@ -7,9 +7,7 @@ footer {
 }
 
 .vk-icon {
-  text-align: center;
   width: 50%;
-  margin-right: 10px;
 }
 
 .vk-icon:visited {
@@ -19,6 +17,7 @@ footer {
 .team-name {
   text-align: center;
   width: 50%;
+  color: #000;
 }
 
 .modal.active {
