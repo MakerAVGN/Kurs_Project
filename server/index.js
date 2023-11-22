@@ -66,12 +66,12 @@ db.query(
 );
 
 db.query(`CREATE TABLE IF NOT EXISTS results (
-  ResultID INT NOT NULL,
-  StudentID INT NOT NULL,
-  TaskName VARCHAR(255) NOT NULL,
-  Points INT NOT NULL,
-  Status VARCHAR(255) NOT NULL,
-  PRIMARY KEY (ResultID)
+  resultID INT NOT NULL,
+  studentID INT NOT NULL,
+  taskName VARCHAR(255) NOT NULL,
+  points INT NOT NULL,
+  status VARCHAR(255) NOT NULL,
+  PRIMARY KEY (resultID)
 )`);
 
 app.get("/admin", (req, res) => {
@@ -123,16 +123,15 @@ app.post("/login", (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
   let sql = `SELECT studentID FROM students WHERE email = ? AND password = ?`;
-  db.query(sql, [email, password], (err, results) => {
+  db.query(sql, [email, password], (err, loginResult) => {
     if (err) {
       res.status(500).send("Error retrieving student details");
       throw err;
     }
-    if (results.length === 0) {
+    if (loginResult.length === 0) {
       res.status(401).send("User not found");
     } else {
-      res.status(200);
-      res.redirect(`/cabinet/${results[0].studentID}`);
+      res.redirect(`/cabinet/${loginResult[0].studentID}`);
     }
   });
 });
@@ -140,7 +139,7 @@ app.post("/login", (req, res) => {
 app.get("/cabinet/:id", (req, res) => {
   let id = req.params.id;
   db.query(
-    `SELECT * from results WHERE StudentID = ?`,
+    `SELECT *, COUNT(*) OVER () AS boughtCourses, SUM(Points) OVER () AS TotalPoints, SUM(CASE WHEN Status = 'Пройден' THEN 1 ELSE 0 END) OVER () AS passedCourses FROM results WHERE StudentID = ?`,
     [id],
     (err, results) => {
       if (err) {
@@ -149,6 +148,9 @@ app.get("/cabinet/:id", (req, res) => {
       } else {
         res.render("cabinet", {
           taskInfo: results,
+          boughtCourses: results[0].boughtCourses,
+          ratingCount: results[0].TotalPoints,
+          passedCourses: results[0].passedCourses,
         });
       }
     }

@@ -101,7 +101,7 @@
         <div class="cardBox">
           <div class="card">
             <div>
-              <div class="numbers">0</div>
+              <div class="numbers"><%= passedCourses %></div>
               <div class="cardName">Курсов пройдено</div>
             </div>
 
@@ -112,7 +112,7 @@
 
           <div class="card">
             <div>
-              <div class="numbers">5</div>
+              <div class="numbers"><%= boughtCourses %></div>
               <div class="cardName">Купленных курсов</div>
             </div>
 
@@ -134,7 +134,7 @@
 
           <div class="card">
             <div>
-              <div class="numbers">890</div>
+              <div class="numbers"><%= ratingCount %></div>
               <div class="cardName">Очков рейтинга</div>
             </div>
 
@@ -162,20 +162,20 @@
               </thead>
 
               <tbody>
-                <% for (let id = 0; id < taskInfo.length; id++) {%>
+                <% for (let id = 0; id < taskInfo.length; id++) { %>
                 <tr>
                   <td><%= taskInfo[id].TaskName %></td>
                   <td><%= taskInfo[id].Points %></td>
                   <td>
                     <% if (taskInfo[id].Status === "Выполняется") { %>
                       <span class="status delivered"><%= taskInfo[id].Status %></span>
-                    <% } else if (taskInfo[id].Status === "Приостановлен") { %>
-                      <span class="status pending"><%= taskInfo[id].Status %></span>
-                    <% } else if (taskInfo[id].Status === "Заброшен") { %>
-                      <span class="status return">Заброшен</span>
-                    <% } else { %>
-                      <span class="status inProgress">Изучается</span>
-                    <% }%>
+                      <% } else if (taskInfo[id].Status === "Приостановлен") { %>
+                        <span class="status pending"><%= taskInfo[id].Status %></span>
+                        <% } else if (taskInfo[id].Status === "Пройден") { %>
+                          <span class="status inProgress">Пройден</span>
+                      <% } else { %>
+                        <span class="status return">Заброшен</span>
+                    <% } %>
                   </td>
                 </tr>
                 <% } %>
