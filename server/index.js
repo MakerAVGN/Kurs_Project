@@ -1,10 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mysql = require("mysql");
 const path = require("path");
 const app = express();
-
 require("dotenv").config();
+const cabinet = require("./cabinet.js");
+
 app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
@@ -34,45 +34,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Database connection
-
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "testovaya",
-  port: 3306,
-});
-
-db.connect((err) => {
-  if (err) throw err;
-  else console.log("Database connection established");
-});
-
-db.query(
-  `CREATE TABLE IF NOT EXISTS students (
-    studentID INT NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    surname VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    profile_pic VARCHAR(255) NULL,
-    PRIMARY KEY (StudentId)
-  )`,
-  (err, result) => {
-    if (err) {
-      console.error(err);
-    }
-  }
-);
-
-db.query(`CREATE TABLE IF NOT EXISTS results (
-  resultID INT NOT NULL,
-  studentID INT NOT NULL,
-  taskName VARCHAR(255) NOT NULL,
-  points INT NOT NULL,
-  status VARCHAR(255) NOT NULL,
-  PRIMARY KEY (resultID)
-)`);
+const db = require("./db.js");
 
 app.get("/admin", (req, res) => {
   res.redirect("https://app.forestadmin.com/");
@@ -136,26 +98,7 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.get("/cabinet/:id", (req, res) => {
-  let id = req.params.id;
-  db.query(
-    `SELECT *, COUNT(*) OVER () AS boughtCourses, SUM(Points) OVER () AS TotalPoints, SUM(CASE WHEN Status = 'Пройден' THEN 1 ELSE 0 END) OVER () AS passedCourses FROM results WHERE StudentID = ?`,
-    [id],
-    (err, results) => {
-      if (err) {
-        res.status(500).send("Error retrievent student details");
-        throw err;
-      } else {
-        res.render("cabinet", {
-          taskInfo: results,
-          boughtCourses: results[0].boughtCourses,
-          ratingCount: results[0].TotalPoints,
-          passedCourses: results[0].passedCourses,
-        });
-      }
-    }
-  );
-});
+app.use("/cabinet/", cabinet);
 
 app.listen(5000, () => {
   console.log("server listening on port 5000");
