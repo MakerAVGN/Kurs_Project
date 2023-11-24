@@ -1,23 +1,6 @@
 footer {
   display: flex;
   align-items: center;
-<<<<<<< HEAD
-  justify-content: space-around;
-  padding: 10px 20px;
-  /* Увеличил отступы для наглядности */
-  background-color: #816ba8;
-}
-
-.vk-icon{
-  cursor: pointer;
-}
-
-.team-name {
-  /* Занимает оставшееся пространство */
-  text-align: center;
-  color: #000;
-}
-=======
   justify-content: space-between;
   padding: 10px 0;
   background-color: #bfcde0;
@@ -59,4 +42,3 @@ footer {
   border: 1px solid #888;
   width: 30%;
 }
->>>>>>> 379a56c52f61251468d3014048e95d76dcff0eb5

@@ -188,117 +188,22 @@
             <div class="cardHeader">
               <h2>Другие ученики</h2>
             </div>
-
             <table>
+              <% for (let id = 0; id < otherStudents.length; id++) { %>
               <tr>
                 <td width="60px">
                   <div class="imgBx">
-                    <img src="/images/customer02.jpg" alt="" />
+                  <img src="<%= otherStudents[id].profile_pic || '/images/default_pfp.jpg' %>" alt="">
                   </div>
                 </td>
                 <td>
                   <h4>
-                    Давид<br />
-                    <span>Школа 21</span>
+                    <%= otherStudents[id].name %> <%= otherStudents[id].surname %><br />
+                    <span><%= otherStudents[id].email %></span>
                   </h4>
                 </td>
               </tr>
-
-              <tr>
-                <td width="60px">
-                  <div class="imgBx">
-                    <img src="/images/customer01.jpg" alt="" />
-                  </div>
-                </td>
-                <td>
-                  <h4>
-                    Амет <br />
-                    <span>Школа 30</span>
-                  </h4>
-                </td>
-              </tr>
-
-              <tr>
-                <td width="60px">
-                  <div class="imgBx">
-                    <img src="/images/customer02.jpg" alt="" />
-                  </div>
-                </td>
-                <td>
-                  <h4>
-                    Давид<br />
-                    <span>Школа 21</span>
-                  </h4>
-                </td>
-              </tr>
-
-              <tr>
-                <td width="60px">
-                  <div class="imgBx">
-                    <img src="/images/customer01.jpg" alt="" />
-                  </div>
-                </td>
-                <td>
-                  <h4>
-                    Амет <br />
-                    <span>Школа 30</span>
-                  </h4>
-                </td>
-              </tr>
-              <tr>
-                <td width="60px">
-                  <div class="imgBx">
-                    <img src="/images/customer02.jpg" alt="" />
-                  </div>
-                </td>
-                <td>
-                  <h4>
-                    Давид<br />
-                    <span>Школа 21</span>
-                  </h4>
-                </td>
-              </tr>
-
-              <tr>
-                <td width="60px">
-                  <div class="imgBx">
-                    <img src="/images/customer01.jpg" alt="" />
-                  </div>
-                </td>
-                <td>
-                  <h4>
-                    Амет <br />
-                    <span>Школа 30</span>
-                  </h4>
-                </td>
-              </tr>
-              <tr>
-                <td width="60px">
-                  <div class="imgBx">
-                    <img src="/images/customer02.jpg" alt="" />
-                  </div>
-                </td>
-                <td>
-                  <h4>
-                    Давид<br />
-                    <span>Школа 21</span>
-                  </h4>
-                </td>
-              </tr>
-
-              <tr>
-                <td width="60px">
-                  <div class="imgBx">
-                    <img src="/images/customer01.jpg" alt="" />
-                  </div>
-                </td>
-                <td>
-                  <h4>
-                    Амет <br />
-                    <span>Школа 30</span>
-                  </h4>
-                </td>
-              </tr>
+              <% } %>
             </table>
           </div>
         </div>

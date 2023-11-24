@@ -132,15 +132,9 @@ form div {
   align-items: center;
 }
 
-<<<<<<< HEAD
-main label,
-main input,
-main button {
-=======
 label,
 input,
 button {
->>>>>>> 379a56c52f61251468d3014048e95d76dcff0eb5
   margin-top: 10px;
   margin-right: 10px;
 }
@@ -154,11 +148,7 @@ form input {
   text-align: left;
 }
 
-<<<<<<< HEAD
-main form input:first-of-type {
-=======
 form input:first-of-type {
->>>>>>> 379a56c52f61251468d3014048e95d76dcff0eb5
   margin-left: -10px;
 }
 

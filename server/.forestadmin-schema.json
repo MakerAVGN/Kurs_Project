@@ -6,7 +6,7 @@
         {
           "defaultValue": null,
           "enums": [],
-          "field": "points",
+          "field": "Points",
           "integration": null,
           "inverseOf": null,
           "isFilterable": true,
@@ -22,7 +22,7 @@
         {
           "defaultValue": null,
           "enums": [],
-          "field": "resultID",
+          "field": "ResultID",
           "integration": null,
           "inverseOf": null,
           "isFilterable": true,
@@ -38,7 +38,7 @@
         {
           "defaultValue": null,
           "enums": [],
-          "field": "status",
+          "field": "Status",
           "integration": null,
           "inverseOf": null,
           "isFilterable": true,
@@ -54,7 +54,7 @@
         {
           "defaultValue": null,
           "enums": [],
-          "field": "studentID",
+          "field": "StudentID",
           "integration": null,
           "inverseOf": null,
           "isFilterable": true,
@@ -70,7 +70,7 @@
         {
           "defaultValue": null,
           "enums": [],
-          "field": "taskName",
+          "field": "TaskName",
           "integration": null,
           "inverseOf": null,
           "isFilterable": true,
@@ -207,8 +207,8 @@
   ],
   "meta": {
     "liana": "forest-nodejs-agent",
-    "liana_version": "1.36.4",
+    "liana_version": "1.36.0",
     "liana_features": null,
-    "stack": {"engine": "nodejs", "engine_version": "20.8.0"}
+    "stack": {"engine": "nodejs", "engine_version": "20.9.0"}
   }
 }

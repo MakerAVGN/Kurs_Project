@@ -17,7 +17,6 @@ router.get("/:id", (req, res) => {
       }
 
       if (student.length === 0) {
-        console.log("Student does not exist");
         return res.status(404).send("This student does not exist");
       }
 
@@ -42,8 +41,6 @@ router.get("/:id", (req, res) => {
               } else {
                 // Check if results is defined and has at least one element
                 if (!results || results.length === 0) {
-                  console.log("No results found for the student");
-                  // Render the page with default values or a message
                   return res.render("cabinet", {
                     taskInfo: [],
                     boughtCourses: 0,
