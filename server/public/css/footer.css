@@ -1,6 +1,7 @@
 footer {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   justify-content: space-around;
   padding: 10px 20px;
   /* Увеличил отступы для наглядности */
@@ -16,3 +17,46 @@ footer {
   text-align: center;
   color: #000;
 }
+=======
+  justify-content: space-between;
+  padding: 10px 0;
+  background-color: #bfcde0;
+}
+
+.vk-icon {
+  width: 50%;
+}
+
+.vk-icon:visited {
+  color: initial;
+}
+
+.team-name {
+  text-align: center;
+  width: 50%;
+  color: #000;
+}
+
+.modal.active {
+  display: block;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  z-index: 1;
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+}
+>>>>>>> 379a56c52f61251468d3014048e95d76dcff0eb5
