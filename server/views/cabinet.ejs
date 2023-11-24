@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="/css/cabinet.css" />
+  </head>
+
+  <body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="#">
+              <span class="title">EnglishPlus+</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="home-outline"></ion-icon>
+              </span>
+              <span class="title">Главная</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="book-outline"></ion-icon>
+              </span>
+              <span class="title">Курсы</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="chatbubble-outline"></ion-icon>
+              </span>
+              <span class="title">Сообщения</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="help-outline"></ion-icon>
+              </span>
+              <span class="title">Помощь</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="settings-outline"></ion-icon>
+              </span>
+              <span class="title">Настройки</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+              </span>
+              <span class="title">Личные данные</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="log-out-outline"></ion-icon>
+              </span>
+              <span class="title">Выйти</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ========================= Main ==================== -->
+      <div class="main">
+        <div class="topbar">
+          <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+
+          <div class="user">
+            <img src="/images/customer01.jpg" alt="Example Image" />
+          </div>
+        </div>
+
+        <!-- ======================= Cards ================== -->
+        <div class="cardBox">
+          <div class="card">
+            <div>
+              <div class="numbers"><%= passedCourses %></div>
+              <div class="cardName">Курсов пройдено</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="checkmark-outline"></ion-icon>
+            </div>
+          </div>
+
+          <div class="card">
+            <div>
+              <div class="numbers"><%= boughtCourses %></div>
+              <div class="cardName">Купленных курсов</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="cart-outline"></ion-icon>
+            </div>
+          </div>
+
+          <div class="card">
+            <div>
+              <div class="numbers">71</div>
+              <div class="cardName">Решенных задач</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="library-outline"></ion-icon>
+            </div>
+          </div>
+
+          <div class="card">
+            <div>
+              <div class="numbers"><%= ratingCount %></div>
+              <div class="cardName">Очков рейтинга</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="bar-chart-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================ Order Details List ================= -->
+        <div class="details">
+          <div class="recentOrders">
+            <div class="cardHeader">
+              <h2>Таблица пройденных этапов</h2>
+              <a href="#" class="btn">Смотреть все</a>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <td>Название курса</td>
+                  <td>Кол-во баллов</td>
+                  <td>Статус</td>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% for (let id = 0; id < taskInfo.length; id++) { %>
+                <tr>
+                  <td><%= taskInfo[id].TaskName %></td>
+                  <td><%= taskInfo[id].Points %></td>
+                  <td>
+                    <% if (taskInfo[id].Status === "Выполняется") { %>
+                      <span class="status delivered"><%= taskInfo[id].Status %></span>
+                      <% } else if (taskInfo[id].Status === "Приостановлен") { %>
+                        <span class="status pending"><%= taskInfo[id].Status %></span>
+                        <% } else if (taskInfo[id].Status === "Пройден") { %>
+                          <span class="status inProgress">Пройден</span>
+                      <% } else { %>
+                        <span class="status return">Заброшен</span>
+                    <% } %>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ================= New Customers ================ -->
+          <div class="recentCustomers">
+            <div class="cardHeader">
+              <h2>Другие ученики</h2>
+            </div>
+
+            <table>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="/images/customer02.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    Давид<br />
+                    <span>Школа 21</span>
+                  </h4>
+                </td>
+              </tr>
+
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="/images/customer01.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    Амет <br />
+                    <span>Школа 30</span>
+                  </h4>
+                </td>
+              </tr>
+
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="/images/customer02.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    Давид<br />
+                    <span>Школа 21</span>
+                  </h4>
+                </td>
+              </tr>
+
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="/images/customer01.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    Амет <br />
+                    <span>Школа 30</span>
+                  </h4>
+                </td>
+              </tr>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="/images/customer02.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    Давид<br />
+                    <span>Школа 21</span>
+                  </h4>
+                </td>
+              </tr>
+
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="/images/customer01.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    Амет <br />
+                    <span>Школа 30</span>
+                  </h4>
+                </td>
+              </tr>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="/images/customer02.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    Давид<br />
+                    <span>Школа 21</span>
+                  </h4>
+                </td>
+              </tr>
+
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="/images/customer01.jpg" alt="" />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    Амет <br />
+                    <span>Школа 30</span>
+                  </h4>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script src="js/cabinet.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

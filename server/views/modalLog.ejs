@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/modal-log.css">
+</head>
+
+<body>
+  <div id="modal" class="modal">
+    <form id="loginForm">
+      <div class="modal-content">
+        <img class="close-modal" width="20" height="20" src="https://img.icons8.com/ios-filled/50/delete-sign--v1.png"
+          alt="delete-sign--v1" />
+        <h2>Авторизация</h2>
+        <label htmlFor="email">Ваш email</label>
+        <input type="text" id="email" name="email" placeholder="Введите ваш email" />
+        <label htmlFor="password">Ваш пароль</label>
+        <input type="password" id="password" name="password" placeholder="Введите ваш пароль" />
+        <div class="btn-main-wrapper">
+          <button type="button" class="btn-modal" onclick="submitForm()">
+            Войти
+          </button>
+        </div>
+        <div id="error-message" style="color: red; margin-top: 10px;"></div>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

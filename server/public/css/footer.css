@@ -1,0 +1,18 @@
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 20px;
+  /* Увеличил отступы для наглядности */
+  background-color: #816ba8;
+}
+
+.vk-icon{
+  cursor: pointer;
+}
+
+.team-name {
+  /* Занимает оставшееся пространство */
+  text-align: center;
+  color: #000;
+}
