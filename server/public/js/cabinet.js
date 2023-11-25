@@ -1,4 +1,3 @@
-// add hovered class to selected list item
 let list = document.querySelectorAll(".navigation li");
 
 function activeLink() {
@@ -19,3 +18,20 @@ toggle.onclick = function () {
   navigation.classList.toggle("active");
   main.classList.toggle("active");
 };
+
+  const imgUserBlock = document.getElementById('userBlock');
+  const modalImg = document.getElementById('modal-img');
+  const modalContentImg = document.querySelector('modalContentImg');
+  const closeModalImg = document.getElementById('closeModalImg');
+
+  imgUserBlock.addEventListener('click', function () {
+    modalImg.classList.add('active');
+    modalContentImg.classList.add('active');
+  });
+
+  closeModalImg.addEventListener('click', function () {
+    modalContentImg.classList.remove('active');
+    setTimeout(() => {
+      modalImg.classList.remove('active');
+    }, 500);
+  });

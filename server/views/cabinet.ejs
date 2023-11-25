@@ -92,9 +92,10 @@
             <ion-icon name="menu-outline"></ion-icon>
           </div>
 
-          <div class="user">
-            <img src="/images/customer01.jpg" alt="Example Image" />
+          <div class="user" id="userBlock">
+            <img src="/images/customer01.jpg" alt="Пример изображения" />
           </div>
+
         </div>
 
         <!-- ======================= Cards ================== -->
@@ -211,6 +212,14 @@
             </table>
           </div>
         </div>
+      </div>
+    </div>
+    <div id="modal-img" class="modal-img">
+      <div class="modal-content-img" id="modalContentImg">
+        <span class="close-modal-img" id="closeModalImg">&times;</span>
+        <label for="profilePicAddress">Ссылка на фото профиля:</label>
+        <input type="text" id="profilePicAddress" name="profilePicAddress" />
+        <button id="saveChanges">Сохранить изменения</button>
       </div>
     </div>
 
