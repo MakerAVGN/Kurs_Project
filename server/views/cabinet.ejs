@@ -93,7 +93,7 @@
           </div>
 
           <div class="user" id="userBlock">
-            <img src="/images/customer01.jpg" alt="Пример изображения" />
+            <img src="<%= studentPic || '/images/default_pfp.jpg' %>" alt="Аватарка" />
           </div>
 
         </div>
@@ -153,6 +153,9 @@
               <a href="#" class="btn">Смотреть все</a>
             </div>
 
+            <% if (message.length > 0) { %>
+              <%= (message) %>
+            <% } else { %>
             <table>
               <thead>
                 <tr>
@@ -163,10 +166,6 @@
               </thead>
 
               <tbody>
-                <% if (message.length > 0) { %>
-                  <%= (message) %>
-                  <%}%>
-
                 <% for (let id = 0; id < taskInfo.length; id++) { %>
                 <tr>
                   <td><%= taskInfo[id].TaskName %></td>
@@ -186,6 +185,7 @@
                 <% } %>
               </tbody>
             </table>
+            <% } %>
           </div>
 
           <!-- ================= New Customers ================ -->

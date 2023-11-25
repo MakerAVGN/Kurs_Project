@@ -1,5 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
+
+router.use(express.static("public"));
+router.use(express.static(path.join(__dirname, "public")));
 
 const db = require("./db.js");
 
@@ -42,23 +46,25 @@ router.get("/:id", (req, res) => {
                 // Check if results is defined and has at least one element
                 if (!results || results.length === 0) {
                   return res.render("cabinet", {
+                    studentPic: student[0].profile_pic,
                     taskInfo: [],
                     boughtCourses: 0,
                     ratingCount: 0,
                     passedCourses: 0,
                     otherStudents: otherStudentsResult,
-                    message: "No results found for the student",
+                    message: "У вас не куплено ни одного курса",
                   });
                 }
 
                 // Render the page with the retrieved data
                 res.render("cabinet", {
+                  studentPic: student[0].profile_pic,
                   taskInfo: results,
                   boughtCourses: results[0].boughtCourses,
                   ratingCount: results[0].TotalPoints,
                   passedCourses: results[0].passedCourses,
                   otherStudents: otherStudentsResult,
-                  message: ""
+                  message: "",
                 });
               }
             }
