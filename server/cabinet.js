@@ -58,6 +58,7 @@ router.get("/:id", (req, res) => {
                   ratingCount: results[0].TotalPoints,
                   passedCourses: results[0].passedCourses,
                   otherStudents: otherStudentsResult,
+                  message: ""
                 });
               }
             }

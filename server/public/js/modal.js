@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const modal = document.querySelector('.modal');
+  const modal = document.getElementById('modal-log');
   const btnLog = document.querySelector('.btn-log');
   const closeModal = document.querySelector('.close-modal');
   const modalContent = document.querySelector('.modal-content');
@@ -13,66 +13,62 @@ document.addEventListener('DOMContentLoaded', function () {
     modalContent.classList.remove('active');
     setTimeout(() => {
       modal.classList.remove('active');
-    }, 500); // Добавлено время анимации в миллисекундах
+    }, 500);
   });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-  const loginModal = document.getElementById('loginModal');
-  const registerModal = document.getElementById('registerModal');
-  const btnSign = document.querySelector('.btn-Sign');
-  const btnRegister = document.querySelector('.btn-register');
-  const closeModal = document.querySelector('.close-modal');
+  const loginButton = document.querySelector('.btn-modal');
+  loginButton.addEventListener('click', submitForm);
+
+  const btnSign = document.getElementById('btn-sign'); // Updated ID
+  const modalSign = document.getElementById('modal-sign');
+  const modalContentSign = document.querySelector('.modal-content-sign');
+  const closeModalSign = document.querySelector('.close-modal-sign');
 
   btnSign.addEventListener('click', function () {
-    loginModal.classList.add('active');
+    modalSign.classList.add('active');
+    modalContentSign.classList.add('active');
   });
 
-  btnRegister.addEventListener('click', function () {
-    registerModal.classList.add('active');
-  });
-
-  closeModal.addEventListener('click', function () {
-    loginModal.classList.remove('active');
-    registerModal.classList.remove('active');
+  closeModalSign.addEventListener('click', function () {
+    modalContentSign.classList.remove('active');
+    setTimeout(() => {
+      modalSign.classList.remove('active');
+    }, 500);
   });
 });
 
+// Функция отправки формы
+function submitForm() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const errorMessage = document.getElementById('error-message');
 
-    function submitForm() {
-      const form = document.getElementById('loginForm');
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const errorMessage = document.getElementById('error-message');
-      const modal = document.querySelector('modal'); // Добавили эту строку
+  // Очищаем предыдущие сообщения об ошибке
+  errorMessage.textContent = '';
 
-      // Очищаем предыдущие сообщения об ошибке
-      errorMessage.textContent = '';
-
-      // Отправляем POST-запрос
-      fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Пользователь не найден');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Обработка успешного ответа
-          console.log('Успешно:', data);
-        })
-        .catch(error => {
-          // Обработка ошибки
-          errorMessage.textContent = error.message;
-        })
-        .finally(() => {
-          // Убираем класс active после завершения запроса
-          modal.classList.remove('active');
-        });
-    }
+  fetch('/cabinet', {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({ email, password }),
+  })
+  .then(response => {
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return response.json();
+})
+.then(data => {
+  // Обработка успешного ответа
+})
+.catch(error => {
+  // Обработка ошибок
+  console.error('Fetch error:', error);
+});
+}

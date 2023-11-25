@@ -5,26 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/modal-sign.css">
 </head>
 
 <body>
-    <div id="registerModal" class="modal">
-        <form id="registerForm">
-            <div class="modal-content">
-                <img class="close-modal" width="20" height="20"
+    <div id="modal-sign" class="modal-sign">
+        <form id="registerForm" method="POST" action="/register">
+            <div class="modal-content-sign">
+                <img class="close-modal-sign" width="20" height="20"
                     src="https://img.icons8.com/ios-filled/50/delete-sign--v1.png" alt="delete-sign--v1" />
                 <h2>Регистрация</h2>
-                <label htmlFor="name">Имя</label>
-                <input type="text" id="name" name="name" placeholder="Введите ваше имя" />
-                <label htmlFor="surname">Фамилия</label>
-                <input type="text" id="surname" name="surname" placeholder="Введите вашу фамилию" />
-                <label htmlFor="email">Ваш email</label>
-                <input type="text" id="email" name="email" placeholder="Введите ваш email" />
-                <label htmlFor="password">Ваш пароль</label>
-                <input type="password" id="password" name="password" placeholder="Введите ваш пароль" />
+                <label for="name">Имя</label>
+                <input type="text" id="name-sign" name="name" placeholder="Введите ваше имя" />
+                <label for="surname">Фамилия</label>
+                <input type="text" id="surname-sign" name="surname" placeholder="Введите вашу фамилию" />
+                <label for="email">Ваш email</label>
+                <input type="email" id="email-sign" name="email" placeholder="Введите ваш email" />
+                <label for="password">Ваш пароль</label>
+                <input type="password" id="password-sign" name="password" placeholder="Введите ваш пароль" />
                 <div class="btn-main-wrapper">
-                    <button type="button" class="btn-modal" onclick="submitRegisterForm()">
+                    <button type="submit" class="btn-sign" id="btn-sign">
                         Зарегистрироваться
                     </button>
                 </div>

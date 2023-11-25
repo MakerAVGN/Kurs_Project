@@ -19,11 +19,11 @@
   }
 }
 
-.modal.active {
+#modal-log.active {
   display: block;
 }
 
-.modal {
+#modal-log {
   display: none;
   position: fixed;
   left: 0;
@@ -35,7 +35,7 @@
 
 .modal-content.active {
   animation: slideIn 0.6s ease-in-out;
-
+  
 }
 
 .modal-content {
@@ -58,7 +58,7 @@
   margin-bottom: 3px;
 }
 
-.modal-content label {
+  .modal-content label {
   text-align: left;
   width: 75%;
   padding: 10px 0 8px 0;
