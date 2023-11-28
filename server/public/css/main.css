@@ -6,7 +6,7 @@
 }
 
 .center-text {
-  margin: 10px 0;
+  margin: 25px 0 30px 0  ;
   color: #000;
   text-align: center;
   font-size: 30px;
@@ -87,6 +87,12 @@
   max-width: 100%;
 }
 
+.container-wrapper.block{
+  display: grid;
+    grid-template-columns: 2.9fr 3fr 2fr;
+    
+}
+
 .container-wrapper {
   display: grid;
   grid-template-columns: 3fr 1fr 2fr;
@@ -155,4 +161,15 @@ form input:first-of-type {
 form input:focus {
   border-color: #ed6316;
   outline: none;
+}
+
+#review{
+  background-color: #ebb72f;
+  color: black;
+}
+
+#review:hover{
+      background-color: #ed6316;
+      color: white;
+      margin-left: 10px;
 }

@@ -19,12 +19,25 @@ document.addEventListener('DOMContentLoaded', function () {
   const loginButton = document.querySelector('.btn-modal');
   loginButton.addEventListener('click', submitForm);
 
-  const btnSign = document.getElementById('btn-sign'); // Updated ID
+  const btnSign = document.getElementById('btn-sign');
+  const startLesson = document.getElementById('start-lesson');
   const modalSign = document.getElementById('modal-sign');
   const modalContentSign = document.querySelector('.modal-content-sign');
   const closeModalSign = document.querySelector('.close-modal-sign');
 
   btnSign.addEventListener('click', function () {
+    modalSign.classList.add('active');
+    modalContentSign.classList.add('active');
+  });
+
+  closeModalSign.addEventListener('click', function () {
+    modalContentSign.classList.remove('active');
+    setTimeout(() => {
+      modalSign.classList.remove('active');
+    }, 500);
+  });
+
+  startLesson.addEventListener('click', function () {
     modalSign.classList.add('active');
     modalContentSign.classList.add('active');
   });
