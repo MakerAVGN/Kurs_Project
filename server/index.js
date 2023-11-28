@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
 require("dotenv").config();
@@ -30,8 +29,8 @@ createAgent({
 app.use("/", mainRoutes);
 
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // Database connection
 require("./db.js");
