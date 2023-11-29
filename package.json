@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@forestadmin/agent": "^1.36.0",
+    "@forestadmin/agent": "^1.36.5",
     "@forestadmin/datasource-sql": "^1.7.39",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",

@@ -82,18 +82,20 @@ router.patch("/change_profile_pic", (req, res) => {
   const newProfilePic = req.body.profilePicAddress;
   const imageExtensions = /\.(jpg|jpeg|png|gif|webp)$/i;
   const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+
   if (!urlRegex.test(newProfilePic) || !imageExtensions.test(newProfilePic)) {
     return res.status(400).json({ error: "Invalid image URL" });
   }
+
   db.query(
     `UPDATE students SET profile_pic = ? WHERE studentID = ?`,
     [newProfilePic, id],
     (err, result) => {
       if (err) {
-        res.status(500).json({ error: "Something went wrong" });
+        res.status(500).json({ error: "Что-то пошло не так" });
         throw err;
       } else {
-        res.status(200).json({ error: "Profile picture updated successfully" });
+        res.status(200).json({ success: true, message: "Фотография профиля успешно обновлена" });
       }
     }
   );

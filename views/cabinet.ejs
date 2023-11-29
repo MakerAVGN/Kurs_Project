@@ -93,8 +93,10 @@
           </div>
 
           <div class="user" id="userBlock">
+            <p class="user-name">
+              <%= studentInfo.name %> <%= studentInfo.surname %>
+            </p>
             <img src="<%= studentInfo.profile_pic || '/images/default_pfp.jpg' %>" alt="Аватарка" />
-            <h2></h2>
           </div>
 
         </div>
@@ -207,12 +209,13 @@
       </div>
     </div>
     <div id="modal-img" class="modal-img">
-      <div class="modal-content-img" id="modalContentImg">
+      <form method="PATCH" class="modal-content-img" id="modalContentImg" action="/change_profile_pic">
         <span class="close-modal-img" id="closeModalImg">&times;</span>
         <label for="profilePicAddress">Ссылка на фото профиля:</label>
         <input type="text" id="profilePicAddress" name="profilePicAddress" />
-        <button id="saveChanges">Сохранить изменения</button>
-      </div>
+        <button id="saveChanges" type="button" onclick="submitProfilePicForm()">Сохранить изменения</button>
+
+      </form>
     </div>
 
     <!-- =========== Scripts =========  -->

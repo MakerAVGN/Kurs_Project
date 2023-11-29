@@ -20,18 +20,57 @@ toggle.onclick = function () {
 };
 
   const imgUserBlock = document.getElementById('userBlock');
-  const modalImg = document.getElementById('modal-img');
-  const modalContentImg = document.querySelector('modalContentImg');
-  const closeModalImg = document.getElementById('closeModalImg');
+const modalImg = document.getElementById('modal-img');
+const modalContentImg = document.querySelector('.modal-content-img'); // обновлено
+const closeModalImg = document.getElementById('closeModalImg');
 
-  imgUserBlock.addEventListener('click', function () {
-    modalImg.classList.add('active');
-    modalContentImg.classList.add('active');
-  });
+imgUserBlock.addEventListener('click', function () {
+  modalImg.classList.add('active');
+});
 
-  closeModalImg.addEventListener('click', function () {
-    modalContentImg.classList.remove('active');
-    setTimeout(() => {
-      modalImg.classList.remove('active');
-    }, 500);
-  });
+closeModalImg.addEventListener('click', function () {
+  modalContentImg.classList.remove('active');
+  setTimeout(() => {
+    modalImg.classList.remove('active');
+  }, 500);
+});
+
+
+
+function submitProfilePicForm() {
+  const profilePicAddress = document.getElementById('profilePicAddress').value;
+  const errorMessage = document.getElementById('error-message');
+
+  // Очищаем предыдущие сообщения об ошибке
+  errorMessage.textContent = '';
+
+  const formData = new FormData();
+  formData.append('profilePicAddress', profilePicAddress);
+
+  fetch('/change_profile_pic', {
+    method: 'PATCH',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    body: formData,
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.success) {
+        // Обработка успешного ответа
+        console.log(data.message);
+      } else {
+        // Обработка других случаев, при необходимости
+        console.error('Не удалось обновить фотографию профиля:', data.error);
+      }
+    })
+    .catch(error => {
+      // Обработка ошибок
+      console.error('Fetch error:', error);
+    });
+}
