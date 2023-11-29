@@ -93,7 +93,7 @@
           </div>
 
           <div class="user" id="userBlock">
-            <img src="<%= studentPic || '/images/default_pfp.jpg' %>" alt="Аватарка" />
+            <img src="<%= studentInfo.profile_pic || '/images/default_pfp.jpg' %>" alt="Аватарка" />
             <h2></h2>
           </div>
 
@@ -103,7 +103,7 @@
         <div class="cardBox">
           <div class="card">
             <div>
-              <div class="numbers"><%= passedCourses %></div>
+              <div class="numbers"><%= taskInfo[0].passedCourses %></div>
               <div class="cardName">Курсов пройдено</div>
             </div>
 
@@ -114,7 +114,7 @@
 
           <div class="card">
             <div>
-              <div class="numbers"><%= boughtCourses %></div>
+              <div class="numbers"><%= taskInfo[0].boughtCourses %></div>
               <div class="cardName">Купленных курсов</div>
             </div>
 
@@ -123,11 +123,11 @@
             </div>
           </div>
 
-          
+
 
           <div class="card">
             <div>
-              <div class="numbers"><%= ratingCount %></div>
+              <div class="numbers"><%= taskInfo[0].TotalPoints %></div>
               <div class="cardName">Очков рейтинга</div>
             </div>
 
@@ -145,8 +145,8 @@
               <a href="#" class="btn">Смотреть все</a>
             </div>
 
-            <% if (message.length > 0) { %>
-              <%= (message) %>
+            <% if (taskInfo[0].boughtCourses === 0) { %>
+              У вас не куплено ни одного курса
             <% } else { %>
             <table>
               <thead>
