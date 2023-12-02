@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>О нас</title>
+    <link rel="stylesheet" href="css/main-list.css">
+    <link rel="stylesheet" href="css/modal-log.css">
+    <link rel="stylesheet" href="css/modal-sign.css">
 </head>
 <body>
-    <h1>О нас</h1>
-    <p>Добро пожаловать в мир инновационной геймификации подготовки к ЕГЭ по английскому языку – добро пожаловать в
+    <%- include('header') %>
+    <main>
+    
+    <h1 class="centered">О нас</h1>
+    <p class="centered">Добро пожаловать в мир инновационной геймификации подготовки к ЕГЭ по английскому языку – добро пожаловать в
     EnglishPlus!</p>
     
-    <h2>О Нашей Команде:</h2>
+    <h2 class="first-h2">О Нашей Команде:</h2>
     
     <h2>Кокиев Мухаммед Али</h2>
     <i>Основатель и Главный Разработчик</i>
@@ -44,5 +50,10 @@
     поддержать вас на пути к успешной сдаче ЕГЭ по английскому языку.
     
     Присоединяйтесь к EnglishPlus – где образование становится приключением, а каждый успех – вашим достижением!
+    </main>
+    <%- include('footer') %>
+    <%- include('modalLog') %>
+    <%- include('modalSign') %>
+    <script src="js/modal.js"></script>
 </body>
 </html>

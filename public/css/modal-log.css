@@ -118,3 +118,19 @@ input:focus {
   right: 25px;
   cursor: pointer;
 }
+
+label,
+input,
+button {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+form input {
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  border-radius: 38px;
+  border: 2px #ced8df solid;
+  text-align: left;
+}

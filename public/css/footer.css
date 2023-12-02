@@ -1,32 +1,53 @@
-footer {
+body {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  flex-grow: 1;
+}
+
+footer {
+  background-color: #b8b2ff;
+  color: #333;
+  padding: 20px 0;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  background-color: #bfcde0;
+  align-items: center;
 }
 
-.vk-icon {
-  width: 100%;
-  scale: 1.5;
+.social-icons {
+  display: flex;
+  gap: 15px;
+  scale: 2;
+}
+
+.social-link {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.social-link:hover {
+  color: #d75400;
+}
+
+.team-info {
   text-align: center;
-}
-
-.vk-icon:visited {
-  color: initial;
 }
 
 .team-name {
-  text-align: center;
-  width: 100%;
-  color: #000;
+  margin-bottom: 10px;
 }
 
-.modal-content {
-  z-index: 1;
-  background-color: #fefefe;
-  margin: 10% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 30%;
+.copyright {
+  font-size: 14px;
+  color: #333;
 }

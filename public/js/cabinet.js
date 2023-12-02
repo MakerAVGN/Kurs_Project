@@ -19,58 +19,50 @@ toggle.onclick = function () {
   main.classList.toggle("active");
 };
 
-  const imgUserBlock = document.getElementById('userBlock');
-const modalImg = document.getElementById('modal-img');
-const modalContentImg = document.querySelector('.modal-content-img'); // обновлено
-const closeModalImg = document.getElementById('closeModalImg');
 
-imgUserBlock.addEventListener('click', function () {
-  modalImg.classList.add('active');
-});
+  const imgBlock = document.getElementById('img-block')
+  const modal = document.getElementById('modalContentImg');
+  const closeModal = document.getElementById('close-modal-img');
+  const btnMain = document.getElementById('saveChanges')
+  const modalContent = document.querySelector(".modalContent")
 
-closeModalImg.addEventListener('click', function () {
-  modalContentImg.classList.remove('active');
-  setTimeout(() => {
-    modalImg.classList.remove('active');
-  }, 500);
-});
+  imgBlock.addEventListener('click', function () {
+    modal.classList.add('active');
+    modalContent.classList.add('active')
+  });
+
+  closeModal.addEventListener('click', function () {
+    modalContent.classList.remove('active');
+    modal.classList.remove('active');
+  });
 
 
+document.addEventListener('DOMContentLoaded', function () {
+  const modalForm = document.querySelector('.modalContent');
 
-function submitProfilePicForm() {
-  const profilePicAddress = document.getElementById('profilePicAddress').value;
-  const errorMessage = document.getElementById('error-message');
+  modalForm.addEventListener('submit', function (event) {
+    event.preventDefault();
 
-  // Очищаем предыдущие сообщения об ошибке
-  errorMessage.textContent = '';
+    const profilePicAddressInput = document.getElementById('profilePicAddress');
+    const newProfilePic = profilePicAddressInput.value;
 
-  const formData = new FormData();
-  formData.append('profilePicAddress', profilePicAddress);
-
-  fetch('/change_profile_pic', {
-    method: 'PATCH',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    body: formData,
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
+    fetch('/change_profile_pic', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ profilePicAddress: newProfilePic }),
     })
+    .then(response => response.json())
     .then(data => {
-      if (data.success) {
-        // Обработка успешного ответа
-        console.log(data.message);
+      if (data.error) {
+        console.error(data.error);
       } else {
-        // Обработка других случаев, при необходимости
-        console.error('Не удалось обновить фотографию профиля:', data.error);
+        console.log('Profile picture updated successfully');
       }
     })
     .catch(error => {
-      // Обработка ошибок
-      console.error('Fetch error:', error);
+      console.error('Error updating profile picture:', error);
     });
-}
+  });
+});

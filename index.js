@@ -5,8 +5,11 @@ require("dotenv").config();
 const cabinet = require("./cabinet.js");
 const log_reg = require("./log_reg.js");
 const mainRoutes = require("./main_routes.js");
+const cors = require("cors");
+
 
 app.use(express.static("public"));
+app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
