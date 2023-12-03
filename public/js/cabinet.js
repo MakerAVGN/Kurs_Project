@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const profilePicAddressInput = document.getElementById('profilePicAddress');
     const newProfilePic = profilePicAddressInput.value;
 
-    fetch('/change_profile_pic', {
-      method: 'PATCH',
+    fetch('/cabinet/change_profile_pic', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },

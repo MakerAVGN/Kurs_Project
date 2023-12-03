@@ -80,8 +80,8 @@ router.get("/", (req, res) => {
 router.post("/change_profile_pic", (req, res) => {
   const id = req.session.userID;
   const newProfilePic = req.body.profilePicAddress;
-  const imageExtensions = /(̇jpg|jpeg|png|gif|webp)/i;
-const urlRegex = /^(https?|ftp):[^/.?#].[^]*/;  
+  const imageExtensions = /\.(jpg|jpeg|png|gif|webp)$/i;
+  const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
   if (!urlRegex.test(newProfilePic) || !imageExtensions.test(newProfilePic)) {
     return res.status(400).json({ error: "Invalid image URL" });
   }
