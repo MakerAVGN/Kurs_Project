@@ -22,14 +22,11 @@ router.get("/", (req, res) => {
     [req.session.userID],
     (err, student) => {
       if (err) {
-        console.error("Error checking if student exists:", err);
-        return res
-          .status(500)
-          .json({ error: "Error checking if student exists" });
+        return res.status(500).json({ err });
       }
 
       if (student.length === 0) {
-        return res.status(404).json({ error: "This student does not exist" });
+        return res.status(404).json({ err });
       }
 
       // Continue with the original queries since the student exists
@@ -38,10 +35,7 @@ router.get("/", (req, res) => {
         [req.session.userID],
         (err, results) => {
           if (err) {
-            console.error("Error retrieving student details:", err);
-            return res
-              .status(500)
-              .json({ error: "Error retrieving student details" });
+            return res.status(500).json({ err });
           }
 
           db.query(
@@ -49,10 +43,7 @@ router.get("/", (req, res) => {
             [req.session.userID],
             (err, otherStudentsResult) => {
               if (err) {
-                console.error("Error retrieving other students:", err);
-                res
-                  .status(500)
-                  .json({ error: "Error retrieving other students" });
+                res.status(500).json({ err });
                 throw err;
               } else {
                 // Check if results is defined and has at least one element
@@ -95,12 +86,10 @@ router.post("/change_profile_pic", (req, res) => {
     [newProfilePic, req.session.userID],
     (err, result) => {
       if (err) {
-        res.status(500).json({ error: "Something went wrong" });
+        res.status(500).json({ err });
         throw err;
       } else {
-        res
-          .status(200)
-          .json({ success: "Profile picture updated successfully" });
+        res.redirect("/");
       }
     }
   );
@@ -113,7 +102,7 @@ router.get("/courses", (req, res) => {
     [id],
     (err, result) => {
       if (err) {
-        res.status(500).json({ error: err });
+        res.status(500).json({ err });
       } else {
         res.render("courses", { classesInfo: result });
       }
@@ -129,7 +118,7 @@ router.get("/courses/:id", (req, res) => {
     [courseID],
     (err, result) => {
       if (err) {
-        res.status(500).json({ error: err });
+        res.status(500).json({ err });
       } else {
         req.session.currentTaskName = result[0].taskName;
         db.query(
@@ -137,7 +126,7 @@ router.get("/courses/:id", (req, res) => {
           [req.session.currentTaskName],
           (err, tasks) => {
             if (err) {
-              res.status(500).json({ error: err });
+              res.status(500).json({ err });
             } else {
               res.render("tasks", {
                 tasksInfo: tasks,
@@ -153,12 +142,22 @@ router.get("/courses/:id", (req, res) => {
 });
 
 router.post("/courses/:id/next-question", (req, res) => {
+  req.session.userPoints = req.session.userPoints || 0;
   req.session.currentQuestionIndex = req.session.currentQuestionIndex + 1;
-  res.redirect(`/cabinet/courses/${req.params.id}`);
+  const selectedAnswer = parseInt(req.body.answer, 10);
+  db.query(
+    `SELECT points, correctOption FROM tasks WHERE taskName = ? ORDER BY taskID`,
+    [req.session.currentTaskName],
+    (err, results) => {
+      if (selectedAnswer === results[0].correctOption) {
+        req.session.userPoints += results[0].points;
+      }
+      res.redirect(`/cabinet/courses/${req.params.id}`);
+    }
+  );
 });
 
 router.post("/courses/:id/submit-answers", (req, res) => {
-  const courseId = req.params.id;
   const selectedAnswer = parseInt(req.body.answer, 10);
 
   db.query(
@@ -166,40 +165,32 @@ router.post("/courses/:id/submit-answers", (req, res) => {
     [req.session.currentTaskName],
     (err, tasks) => {
       if (err) {
-        return res.status(500).json({ error: err });
+        return res.status(500).json({ err });
       }
 
-      const correctOptionIndex =
-        tasks[req.session.currentQuestionIndex].correctOption;
-      const userPoints =
-        selectedAnswer === correctOptionIndex
-          ? tasks[req.session.currentQuestionIndex].points
-          : 0;
+      const currentTask = tasks[req.session.currentQuestionIndex];
 
-      // Прошедший вопрос
-      const passedQuestion = {
-        taskID: tasks[req.session.currentQuestionIndex].taskID,
-        points: userPoints,
-      };
+      if (selectedAnswer === currentTask.correctOption) {
+        req.session.userPoints += currentTask.points;
+      }
 
-      // Обновление статуса вопроса и сохранение результата в массиве
       db.query(
-        `UPDATE results SET status = ?, points = ? WHERE taskName = ? AND studentID = ?`,
+        `UPDATE results SET status = ?, totalPoints = ? WHERE taskName = ? AND studentID = ?`,
         [
           "Пройдено",
-          passedQuestion.points,
+          req.session.userPoints,
           req.session.currentTaskName,
           req.session.userID,
         ],
-        (err, result) => {
+        (err) => {
           if (err) {
-            return res.status(500).json({ error: err });
+            return res.status(500).json({ err });
           }
 
           req.session.currentQuestionIndex++;
 
           if (req.session.currentQuestionIndex < tasks.length) {
-            res.redirect(`/cabinet/courses/${courseId}/next-question`);
+            res.redirect(`/cabinet/courses/${req.params.id}/next-question`);
           } else {
             // Все вопросы пройдены, можно обновить общее количество баллов
             const totalPoints = tasks.reduce(
@@ -207,23 +198,13 @@ router.post("/courses/:id/submit-answers", (req, res) => {
               0
             );
 
-            db.query(
-              `UPDATE results SET points = ? WHERE taskName = ? AND studentID = ?`,
-              [totalPoints, req.session.currentTaskName, req.session.userID],
-              (err, result) => {
-                if (err) {
-                  return res.status(500).json({ error: err });
-                }
+            // Обновление сессии
+            req.session.currentQuestionIndex = 0;
 
-                // Обновление сессии
-                req.session.currentQuestionIndex = 0;
-
-                res.render(`results`, {
-                  totalPoints: totalPoints,
-                  userPoints: userPoints,
-                });
-              }
-            );
+            res.render(`results`, {
+              totalPoints: totalPoints,
+              userPoints: req.session.userPoints,
+            });
           }
         }
       );
