@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Details</title>
+</head>
+<body>
+    <% if (tasksInfo.length > 0) { %>
+        <h1><%= tasksInfo[questionID].taskName %></h1>
+        <p><%= tasksInfo[questionID].taskDescription %></p>
+        <p>Points: <%= tasksInfo[questionID].points %></p>
+
+        <form
+          action="<%= (questionID === tasksInfo.length - 1) ? `/cabinet/courses/${courseID}/submit-answers` : `/cabinet/courses/${courseID}/next-question` %>"
+          method="POST"
+        >
+
+            <% const options = JSON.parse(tasksInfo[questionID].options); %>
+            <% options.options.forEach((option, index) => { %>
+                <label>
+                    <input type="radio" name="answer" value="<%= index %>" required>
+                    <%= option %>
+                </label>
+                <br>
+            <% }); %>
+
+            <button type="submit">
+                <%= (questionID === tasksInfo.length - 1) ? "Submit Answers" : "Next Question" %>
+            </button>
+        </form>
+    <% } else { %>
+        <p>No tasks available.</p>
+    <% } %>
+</body>
+</html>

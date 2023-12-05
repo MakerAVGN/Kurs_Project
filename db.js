@@ -36,7 +36,18 @@ connection.query(`CREATE TABLE IF NOT EXISTS results (
   taskName VARCHAR(255) NOT NULL,
   points INT NOT NULL,
   status VARCHAR(255) NOT NULL,
+  totalPoints INT NOT NULL,
   PRIMARY KEY (resultID)
+)`);
+
+connection.query(`CREATE TABLE IF NOT EXISTS tasks (
+  taskID INT NOT NULL,
+  taskName VARCHAR(255) NOT NULL,
+  taskDescription VARCHAR(255) NOT NULL,
+  points INT,
+  options JSON,
+  correctOption INT,
+  PRIMARY KEY (taskID)
 )`);
 
 module.exports = connection;
