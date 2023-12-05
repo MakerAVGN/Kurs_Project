@@ -184,7 +184,7 @@ router.post("/courses/:id/submit-answers", (req, res) => {
 
       // Обновление статуса вопроса и сохранение результата в массиве
       db.query(
-        `UPDATE results SET status = ?, totalPoints = ? WHERE taskName = ? AND studentID = ?`,
+        `UPDATE results SET status = ?, points = ? WHERE taskName = ? AND studentID = ?`,
         [
           "Пройдено",
           passedQuestion.points,
@@ -196,32 +196,32 @@ router.post("/courses/:id/submit-answers", (req, res) => {
             return res.status(500).json({ error: err });
           }
 
-          req.session.results = req.session.results || [];
-          req.session.results.push(passedQuestion);
-
           req.session.currentQuestionIndex++;
 
           if (req.session.currentQuestionIndex < tasks.length) {
             res.redirect(`/cabinet/courses/${courseId}/next-question`);
           } else {
             // Все вопросы пройдены, можно обновить общее количество баллов
-            const totalPoints = req.session.results.reduce(
-              (sum, question) => sum + question.points,
+            const totalPoints = tasks.reduce(
+              (sum, task) => sum + task.points,
               0
             );
 
             db.query(
-              `UPDATE results SET totalPoints = ? WHERE taskName = ? AND studentID = ?`,
+              `UPDATE results SET points = ? WHERE taskName = ? AND studentID = ?`,
               [totalPoints, req.session.currentTaskName, req.session.userID],
               (err, result) => {
                 if (err) {
                   return res.status(500).json({ error: err });
-                } else {
-                  res.render(`results`, {
-                    totalPoints: totalPoints,
-                    userPoints: userPoints,
-                  });
                 }
+
+                // Обновление сессии
+                req.session.currentQuestionIndex = 0;
+
+                res.render(`results`, {
+                  totalPoints: totalPoints,
+                  userPoints: userPoints,
+                });
               }
             );
           }
