@@ -74,7 +74,7 @@ router.get("/", (req, res) => {
   );
 });
 
-app.post("/change_profile_pic", (req, res) => {
+router.post("/change_profile_pic", (req, res) => {
   const newProfilePic = req.body.profilePicAddress;
   const imageExtensions = /\.(jpg|jpeg|png|gif|webp)$/i;
   const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
@@ -83,22 +83,19 @@ app.post("/change_profile_pic", (req, res) => {
     return res.status(400).json({ error: "Invalid image URL" });
   }
 
-  const studentID = req.session.userID;
-  const sql = 'UPDATE students SET profile_pic = ? WHERE studentID = ?';
-  const values = [newProfilePic, studentID];
-
-  db.query(sql, values, (err, result) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: "Internal server error" });
-    } else {
-      console.log('Profile picture updated successfully');
-      res.json({ success: true, redirectUrl: "/" });
+  db.query(
+    `UPDATE students SET profile_pic = ? WHERE studentID = ?`,
+    [newProfilePic, req.session.userID],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+      } else {
+        res.json({ success: true, redirectUrl: "/" });
+      }
     }
-  });
+  );
 });
-
-
 
 router.get("/courses", (req, res) => {
   const id = req.session.userID;
@@ -182,7 +179,7 @@ router.post("/courses/:id/submit-answers", (req, res) => {
       db.query(
         `UPDATE results SET status = ?, totalPoints = ? WHERE taskName = ? AND studentID = ?`,
         [
-          "Пройдено",
+          "Пройден",
           req.session.userPoints,
           req.session.currentTaskName,
           req.session.userID,
