@@ -37,32 +37,43 @@ toggle.onclick = function () {
   });
 
 
-document.addEventListener('DOMContentLoaded', function () {
-  const modalForm = document.querySelector('.modalContent');
-
-  modalForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const profilePicAddressInput = document.getElementById('profilePicAddress');
-    const newProfilePic = profilePicAddressInput.value;
-
-    fetch('/cabinet/change_profile_pic', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ profilePicAddress: newProfilePic }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.error) {
-        console.error(data.error);
-      } else {
-        console.log('Profile picture updated successfully');
-      }
-    })
-    .catch(error => {
-      console.error('Error updating profile picture:', error);
+  document.addEventListener('DOMContentLoaded', function () {
+    const modalForm = document.getElementById('changeProfilePicForm');
+  
+    modalForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+  
+      const profilePicAddressInput = document.getElementById('profilePicAddress');
+      const newProfilePic = profilePicAddressInput.value;
+  
+      fetch('/cabinet/change_profile_pic', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ profilePicAddress: newProfilePic }),
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Response from server:', data);
+  
+        if (data.error) {
+          console.error(data.error);
+        } else {
+          console.log('Profile picture updated successfully');
+        }
+      })
+      .catch(error => {
+        console.error('Error updating profile picture:', error);
+      });
     });
   });
-});
+  
+  
+  
+  

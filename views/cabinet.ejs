@@ -212,11 +212,11 @@
         <div class="modalContent">
         <img class="close-modal-img" id="close-modal-img" width="20" height="20" src="https://img.icons8.com/ios/50/delete-sign--v1.png" alt="delete-sign--v1" />
         <h2>Изменить изображение профиля</h2>
-        <form method="PATCH" class="modalContent">
-          <label for="img">Введите URL-адресс фотографии</label>
+        <form method="POST" class="modalContent" id="changeProfilePicForm">
+          <label for="img">Введите URL-адрес фотографии</label>
           <input type="text" id="profilePicAddress" name="profilePicAddress" />
           <button type="submit"> Сохранить </button>
-        </form>
+        </form>        
         </div>
       </div>
     </div>

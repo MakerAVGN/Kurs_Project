@@ -74,26 +74,31 @@ router.get("/", (req, res) => {
   );
 });
 
-router.post("/change_profile_pic", (req, res) => {
+app.post("/change_profile_pic", (req, res) => {
   const newProfilePic = req.body.profilePicAddress;
   const imageExtensions = /\.(jpg|jpeg|png|gif|webp)$/i;
   const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+
   if (!urlRegex.test(newProfilePic) || !imageExtensions.test(newProfilePic)) {
     return res.status(400).json({ error: "Invalid image URL" });
   }
-  db.query(
-    `UPDATE students SET profile_pic = ? WHERE studentID = ?`,
-    [newProfilePic, req.session.userID],
-    (err, result) => {
-      if (err) {
-        res.status(500).json({ err });
-        throw err;
-      } else {
-        res.redirect("/");
-      }
+
+  const studentID = req.session.userID;
+  const sql = 'UPDATE students SET profile_pic = ? WHERE studentID = ?';
+  const values = [newProfilePic, studentID];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      console.log('Profile picture updated successfully');
+      res.json({ success: true, redirectUrl: "/" });
     }
-  );
+  });
 });
+
+
 
 router.get("/courses", (req, res) => {
   const id = req.session.userID;
