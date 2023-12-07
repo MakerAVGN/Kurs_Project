@@ -214,4 +214,16 @@ router.post("/courses/:id/submit-answers", (req, res) => {
   );
 });
 
+router.get("/help", (req, res) => {
+  res.render("help");
+});
+
+router.get("/settings", (req, res) => {
+  res.render("settings");
+});
+
+router.get("/personal", (req, res) => {
+  res.render("personal");
+});
+
 module.exports = router;
