@@ -61,6 +61,10 @@ router.post("/:id/next-question", (req, res) => {
     `SELECT points, correctOption FROM tasks WHERE taskName = ? ORDER BY taskID`,
     [req.session.currentTaskName],
     (err, results) => {
+      if (err) {
+        res.status(500);
+        throw new Error(err);
+      }
       if (selectedAnswer === results[0].correctOption) {
         req.session.userPoints += results[0].points;
       }
