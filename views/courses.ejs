@@ -72,63 +72,14 @@
 <div class="details">
 <div class="recentOrders">
 <div class="cardHeader">
-<h2>Ваши курсы</h2>
-</div>
-<div class="course-container">
-<div class="curse-block">
-<h2>Английский 60+</h2>
-<div class="curse-text-pointer">
-    <p>Пройдено</p>
-    <span>89%</span>
-</div>
-</div>
-<div class="curse-block">
-<h2>Английский 70+</h2>
-<div class="curse-text-pointer">
-    <p>Пройдено</p>
-    <span>89%</span>
-</div>
-</div>
-<div class="curse-block">
-<h2>Английский 70+</h2>
-<div class="curse-text-pointer">
-    <p>Пройдено</p>
-    <span>89%</span>
-</div>
-</div>
-<div class="curse-block">
-    <h2>Английский 70+</h2>
-    <div class="curse-text-pointer">
-        <p>Пройдено</p>
-        <span>89%</span>
-    </div>
-    </div>
-    <div class="curse-block">
-        <h2>Английский 70+</h2>
-        <div class="curse-text-pointer">
-            <p>Пройдено</p>
-            <span>89%</span>
-        </div>
-        </div>
+    <% for (let id = 0; id < classesInfo.length; id++) { %>
         <div class="curse-block">
-            <h2>Английский 70+</h2>
-            <div class="curse-text-pointer">
-                <p>Пройдено</p>
-                <span>89%</span>
-            </div>
-            </div>
-
-            <div class="curse-block">
-                <h2>Английский 70+</h2>
-                <div class="curse-text-pointer">
-                    <p>Пройдено</p>
-                    <span>89%</span>
-                </div>
-                </div>
+            <h2><a href="/cabinet/courses/<%= classesInfo[id].resultID %>/<%= %>"><%= classesInfo[id].taskName %></a></h2>
+        </div>
+    <% } %>
 </div>
-<% for (let id = 0; id < classesInfo.length; id++) { %>
-<a href="/cabinet/courses/<%= classesInfo[id].resultID %>/<%= %>"><%= classesInfo[id].taskName %></a>
-<% } %>
+</div>
+</div>
 
 <!-- При повторном нажатии на курсы выдает Cannot GET /courses/ -->
 

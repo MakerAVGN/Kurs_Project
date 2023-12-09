@@ -7,31 +7,101 @@
     <title>Task Details</title>
 </head>
 <body>
-    <% if (tasksInfo.length > 0) { %>
-        <h1><%= tasksInfo[questionID].taskName %></h1>
-        <p><%= tasksInfo[questionID].taskDescription %></p>
-        <p>Points: <%= tasksInfo[questionID].points %></p>
-
-        <form
-          action="<%= (questionID === tasksInfo.length - 1) ? `/cabinet/courses/${courseID}/submit-answers` : `/cabinet/courses/${courseID}/next-question` %>"
-          method="POST"
-        >
-
-            <% const options = JSON.parse(tasksInfo[questionID].options); %>
-            <% options.options.forEach((option, index) => { %>
-                <label>
-                    <input type="radio" name="answer" value="<%= index %>" required>
-                    <%= option %>
-                </label>
-                <br>
-            <% }); %>
-
-            <button type="submit">
-                <%= (questionID === tasksInfo.length - 1) ? "Submit Answers" : "Next Question" %>
-            </button>
-        </form>
-    <% } else { %>
-        <p>No tasks available.</p>
-    <% } %>
+    <body>
+        <div class="container">
+        <div class="navigation">
+        <ul>
+        <li>
+        <a href="/">
+        <span class="title">EnglishPlus+</span>
+        </a>
+        </li>
+        
+        <li>
+        <a href="/cabinet/">
+        <span class="icon">
+        <ion-icon name="home-outline"></ion-icon>
+        </span>
+        <span class="title">Главная</span>
+        </a>
+        </li>
+        
+        <li>
+        <a href="/courses/">
+        <span class="icon">
+        <ion-icon name="book-outline"></ion-icon>
+        </span>
+        <span class="title">Курсы</span>
+        </a>
+        </li>
+        
+        <li>
+        <a href="/ld">
+        <span class="icon">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        </span>
+        <span class="title">Личные данные</span>
+        </a>
+        </li>
+        
+        <li>
+        <a href="/">
+        <span class="icon">
+        <ion-icon name="log-out-outline"></ion-icon>
+        </span>
+        <span class="title">Выйти</span>
+        </a>
+        </li>
+        </ul>
+        </div>
+        
+        <!— ========================= Main ==================== —>
+        <div class="main">
+        <div class="topbar">
+        <div class="toggle">
+        <ion-icon name="menu-outline"></ion-icon>
+        </div>
+        
+        <div class="user" id="userBlock">
+        <p class="user-name">
+        
+        </p>
+        <img id="img-block" src="" alt="Аватарка" />
+        </div>
+        </div>
+        
+        <div class="details">
+        <div class="recentOrders">
+        <div class="cardHeader">
+            <% if (tasksInfo.length > 0) { %>
+                <h1><%= tasksInfo[questionID].taskName %></h1>
+                <p><%= tasksInfo[questionID].taskDescription %></p>
+                <p>Points: <%= tasksInfo[questionID].points %></p>
+        
+                <form
+                  action="<%= (questionID === tasksInfo.length - 1) ? `/cabinet/courses/${courseID}/submit-answers` : `/cabinet/courses/${courseID}/next-question` %>"
+                  method="POST"
+                >
+        
+                    <% const options = JSON.parse(tasksInfo[questionID].options); %>
+                    <% options.options.forEach((option, index) => { %>
+                        <label>
+                            <input type="radio" name="answer" value="<%= index %>" required>
+                            <%= option %>
+                        </label>
+                        <br>
+                    <% }); %>
+        
+                    <button type="submit">
+                        <%= (questionID === tasksInfo.length - 1) ? "Submit Answers" : "Next Question" %>
+                    </button>
+                </form>
+            <% } else { %>
+                <p>No tasks available.</p>
+            <% } %>
+        </div>
+        </div>
+        </div>
+   
 </body>
 </html>
