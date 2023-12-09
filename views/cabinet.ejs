@@ -11,68 +11,9 @@
 
   <body>
     <!-- =============== Navigation ================ -->
-    <div class="container">
-      <div class="navigation">
-        <ul>
-          <li>
-            <a href="/">
-              <span class="title">EnglishPlus+</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="/cabinet/">
-              <span class="icon">
-                <ion-icon name="home-outline"></ion-icon>
-              </span>
-              <span class="title">Главная</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="courses">
-              <span class="icon">
-                <ion-icon name="book-outline"></ion-icon>
-              </span>
-              <span class="title">Курсы</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="ld">
-              <span class="icon">
-                <ion-icon name="lock-closed-outline"></ion-icon>
-              </span>
-              <span class="title">Личные данные</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="/">
-              <span class="icon">
-                <ion-icon name="log-out-outline"></ion-icon>
-              </span>
-              <span class="title">Выйти</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
+    <%- include ('navigation') %>
       <!-- ========================= Main ==================== -->
-      <div class="main">
-        <div class="topbar">
-          <div class="toggle">
-            <ion-icon name="menu-outline"></ion-icon>
-          </div>
-
-          <div class="user" id="userBlock">
-            <p class="user-name">
-              <%= studentInfo.name %> <%= studentInfo.surname %>
-            </p>
-            <img id="img-block" src="<%= studentInfo.profile_pic || '/images/default_pfp.jpg' %>" alt="Аватарка" />
-          </div>
-        </div>
-
+    <%- include ('topbar') %>
         <!-- ======================= Cards ================== -->
         <div class="cardBox">
           <div class="card">
@@ -116,7 +57,7 @@
           <div class="recentOrders">
             <div class="cardHeader">
               <h2>Таблица пройденных этапов</h2>
-              <a href="#" class="btn">Смотреть все</a>
+              <a href="/cabinet/courses" class="btn">Смотреть все</a>
             </div>
 
             <% if (taskInfo[0].boughtCourses === 0) { %>
@@ -166,7 +107,7 @@
               <tr>
                 <td width="60px">
                   <div class="imgBx">
-                  <img src="<%= otherStudents[id].profile_pic || '/images/default_pfp.jpg' %>" alt="">
+                  <img src="<%= otherStudents[id].profile_pic || '/images/default_pfp.jpg' %>" alt="Аватарка">
                   </div>
                 </td>
                 <td>
@@ -182,23 +123,7 @@
         </div>
       </div>
     </div>
-    <div id="modalContentImg">
-      <div class="modalConteiner">
-        <div class="modalContent">
-        <img class="close-modal-img" id="close-modal-img" width="20" height="20" src="https://img.icons8.com/ios/50/delete-sign--v1.png" alt="delete-sign--v1" />
-        <h2>Изменить изображение профиля</h2>
-        <form method="POST" class="modalContent" id="changeProfilePicForm">
-          <label for="img">Введите URL-адрес фотографии</label>
-          <input type="text" id="profilePicAddress" name="profilePicAddress" />
-          <button type="submit"> Сохранить </button>
-        </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- =========== Scripts =========  -->
-    <script src="js/cabinet.js"></script>
-
+    <%- include ('modalpfp') %>
     <!-- ====== ionicons ======= -->
     <script
       type="module"

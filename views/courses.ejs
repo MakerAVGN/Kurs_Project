@@ -1,100 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Курсы</title>
-<link rel="stylesheet" href="/css/cabinet.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсы</title>
+    <link rel="stylesheet" href="/css/cabinet.css" />
 </head>
+
 <body>
-<div class="container">
-<div class="navigation">
-<ul>
-<li>
-<a href="/">
-<span class="title">EnglishPlus+</span>
-</a>
-</li>
+    <!-- =============== Navigation ================ -->
+        <%- include ('navigation') %>
+        <%- include ('topbar') %>
+        <!—=========================Main====================—>
+                <div class="details">
+                    <div class="recentOrders">
+                        <div class="cardHeader">
+                            <h2>Ваши курсы</h2>
+                        </div>
+                        <div class="course-container">
+                            <% for (let id=0; id < classesInfo.length; id++) { %>
+                                <a href="/cabinet/courses/<%= classesInfo[id].resultID %>/<%= %>">
+                                    <div class="curse-block">
+                                        <h2>
+                                            <%= classesInfo[id].taskName %>
+                                        </h2>
+                                        <div class="curse-text-pointer">
+                                            <p>
+                                                <%= classesInfo[id].status %>
+                                            </p>
+                                            <span>
+                                                <%= Math.round((classesInfo[id].userPoints / classesInfo[id].points) *
+                                                    100) %>%
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <% } %>
+                        </div>
+                            <%- include ('modalpfp') %>
 
-<li>
-<a href="/cabinet/">
-<span class="icon">
-<ion-icon name="home-outline"></ion-icon>
-</span>
-<span class="title">Главная</span>
-</a>
-</li>
-
-<li>
-<a href="/courses/">
-<span class="icon">
-<ion-icon name="book-outline"></ion-icon>
-</span>
-<span class="title">Курсы</span>
-</a>
-</li>
-
-<li>
-<a href="/ld">
-<span class="icon">
-<ion-icon name="lock-closed-outline"></ion-icon>
-</span>
-<span class="title">Личные данные</span>
-</a>
-</li>
-
-<li>
-<a href="/">
-<span class="icon">
-<ion-icon name="log-out-outline"></ion-icon>
-</span>
-<span class="title">Выйти</span>
-</a>
-</li>
-</ul>
-</div>
-
-<!— ========================= Main ==================== —>
-<div class="main">
-<div class="topbar">
-<div class="toggle">
-<ion-icon name="menu-outline"></ion-icon>
-</div>
-
-<div class="user" id="userBlock">
-<p class="user-name">
-
-</p>
-<img id="img-block" src="" alt="Аватарка" />
-</div>
-</div>
-
-<div class="details">
-<div class="recentOrders">
-<div class="cardHeader">
-    <% for (let id = 0; id < classesInfo.length; id++) { %>
-        <div class="curse-block">
-            <h2><a href="/cabinet/courses/<%= classesInfo[id].resultID %>/<%= %>"><%= classesInfo[id].taskName %></a></h2>
-        </div>
-    <% } %>
-</div>
-</div>
-</div>
-
-<!-- При повторном нажатии на курсы выдает Cannot GET /courses/ -->
-
-
-
-<script src="js/cabinet.js"></script>
-
-<!— ====== ionicons ======= —>
-<script
-type="module"
-src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-></script>
-<script
-nomodule
-src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-></script>
+                        <!—======ionicons=======—>
+                            <script type="module"
+                                src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+                            <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
+
 </html>

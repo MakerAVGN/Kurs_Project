@@ -10,13 +10,27 @@ const db = require("./db.js");
 router.get("/", (req, res) => {
   const id = req.session.userID;
   db.query(
-    `SELECT resultID, taskName FROM results WHERE studentID = ?`,
+    `SELECT resultID, taskName, points, status, userPoints FROM results WHERE studentID = ?`,
+
     [id],
     (err, result) => {
       if (err) {
         res.status(500).json({ err });
       } else {
-        res.render("courses", { classesInfo: result });
+        db.query(
+          `SELECT * FROM students WHERE studentID = ?`,
+          [req.session.userID],
+          (err, student) => {
+            if (err) {
+              res.status(500).json({ err });
+            } else {
+              res.render("courses", {
+                classesInfo: result,
+                studentInfo: student[0],
+              });
+            }
+          }
+        );
       }
     }
   );
@@ -61,6 +75,10 @@ router.post("/:id/next-question", (req, res) => {
     `SELECT points, correctOption FROM tasks WHERE taskName = ? ORDER BY taskID`,
     [req.session.currentTaskName],
     (err, results) => {
+      if (err) {
+        res.status(500);
+        throw new Error(err);
+      }
       if (selectedAnswer === results[0].correctOption) {
         req.session.userPoints += results[0].points;
       }
