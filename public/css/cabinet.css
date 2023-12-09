@@ -68,7 +68,6 @@ body {
   background-color: #373737;
 }
 
-
 .navigation ul li:nth-child(1) {
   margin-bottom: 40px;
   pointer-events: none;
@@ -558,12 +557,22 @@ h2 {
   box-sizing: border-box;
 }
 
+.course-container a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 .curse-block {
   border: rgba(0, 0, 0, 0.4) 2px solid;
   border-radius: 15px;
   padding: 20px 10px 0 10px;
   height: 150px;
   box-sizing: border-box;
+}
+
+.curse-block:hover {
+  background-color: #f0f0f0;
 }
 
 .curse-text-pointer {
@@ -581,7 +590,7 @@ h2 {
   box-sizing: content-box; /* Optional: Ensure padding doesn't affect the overall size */
 }
 
-.dark-mode{
+.dark-mode {
   color: white;
   background-color: #373737;
 }

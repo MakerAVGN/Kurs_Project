@@ -77,7 +77,7 @@ router.get("/", (req, res) => {
 
 router.post("/change_profile_pic", (req, res) => {
   const newProfilePic = req.body.profilePicAddress;
-  const imageExtensions = /\.(jpg|jpeg|png|gif|webp)$/i;
+  const imageExtensions = /\.(jpg|jpeg|png|gif|webp)/i;
   const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
 
   if (!urlRegex.test(newProfilePic) || !imageExtensions.test(newProfilePic)) {
@@ -117,9 +117,19 @@ router.get("/options", (req, res) => {
 });
 
 router.get("/ld", (req, res) => {
-  res.render("ld");
+  db.query(
+    `SELECT * FROM students WHERE studentID = ?`,
+    [req.session.userID],
+    (err, student) => {
+      if (err) {
+        res.status(500).json({ err });
+      } else {
+        res.render("ld", {
+          studentInfo: student[0],
+        });
+      }
+    }
+  );
 });
-
-
 
 module.exports = router;

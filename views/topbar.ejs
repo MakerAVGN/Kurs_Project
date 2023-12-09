@@ -1,0 +1,15 @@
+<div class="main">
+    <div class="topbar">
+        <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+        </div>
+
+        <div class="user" id="userBlock">
+            <p class="user-name">
+                <%= studentInfo.name %>
+                    <%= studentInfo.surname %>
+            </p>
+            <img id="img-block" src="<%= studentInfo.profile_pic || '/images/default_pfp.jpg' %>" alt="Аватарка" />
+        </div>
+
+    </div>

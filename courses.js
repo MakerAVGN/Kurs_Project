@@ -10,13 +10,27 @@ const db = require("./db.js");
 router.get("/", (req, res) => {
   const id = req.session.userID;
   db.query(
-    `SELECT resultID, taskName FROM results WHERE studentID = ?`,
+    `SELECT resultID, taskName, points, status, userPoints FROM results WHERE studentID = ?`,
+
     [id],
     (err, result) => {
       if (err) {
         res.status(500).json({ err });
       } else {
-        res.render("courses", { classesInfo: result });
+        db.query(
+          `SELECT * FROM students WHERE studentID = ?`,
+          [req.session.userID],
+          (err, student) => {
+            if (err) {
+              res.status(500).json({ err });
+            } else {
+              res.render("courses", {
+                classesInfo: result,
+                studentInfo: student[0],
+              });
+            }
+          }
+        );
       }
     }
   );

@@ -39,6 +39,18 @@ app.use("/", log_reg);
 
 app.use("/cabinet/", cabinet);
 
+app.use((req, res, next) => {
+  res.status(404).render("error404", { error: "Page not found" });
+});
+
+// Middleware для обработки ошибок
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+
+  // Рендеринг страницы 'error' и передача информации об ошибке
+  res.status(500).render("error500", { error: err.message });
+});
+
 app.listen(5000, () => {
   console.log("server listening on port 5000");
 });
