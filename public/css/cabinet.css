@@ -56,10 +56,18 @@ body {
   border-bottom-left-radius: 30px;
 }
 
+/* Default styles */
 .navigation ul li:hover,
 .navigation ul li.hovered {
-  background-color: var(--white);
+  background-color: white;
 }
+
+/* Dark mode styles */
+.navigation.dark-mode ul li:hover,
+.navigation.dark-mode ul li.hovered {
+  background-color: #373737;
+}
+
 
 .navigation ul li:nth-child(1) {
   margin-bottom: 40px;
@@ -540,4 +548,68 @@ h2 {
 
 .modalContent button:hover {
   background-color: #45a049;
+}
+
+.course-container {
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 50px 30px;
+  box-sizing: border-box;
+}
+
+.curse-block {
+  border: rgba(0, 0, 0, 0.4) 2px solid;
+  border-radius: 15px;
+  padding: 20px 10px 0 10px;
+  height: 150px;
+  box-sizing: border-box;
+}
+
+.curse-text-pointer {
+  padding-top: 35px;
+  position: relative;
+}
+
+.curse-text-pointer span {
+  position: absolute;
+  right: 15px;
+  bottom: -20px;
+  border-radius: 50%; /* Set border-radius to 50% for a circle */
+  border: 3px rgb(83, 194, 9) solid;
+  padding: 20px;
+  box-sizing: content-box; /* Optional: Ensure padding doesn't affect the overall size */
+}
+
+.dark-mode{
+  color: white;
+  background-color: #373737;
+}
+
+form {
+  max-width: 400px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }

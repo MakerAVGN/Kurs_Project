@@ -112,4 +112,14 @@ router.get("/personal", (req, res) => {
   res.render("personal");
 });
 
+router.get("/options", (req, res) => {
+  res.render("options");
+});
+
+router.get("/ld", (req, res) => {
+  res.render("ld");
+});
+
+
+
 module.exports = router;

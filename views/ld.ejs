@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Личные данные</title>
+<link rel="stylesheet" href="/css/cabinet.css" />
+</head>
+<body>
+<div class="container">
+<div class="navigation">
+<ul>
+<li>
+<a href="/">
+<span class="title">EnglishPlus+</span>
+</a>
+</li>
+
+<li>
+<a href="/cabinet/">
+<span class="icon">
+<ion-icon name="home-outline"></ion-icon>
+</span>
+<span class="title">Главная</span>
+</a>
+</li>
+
+<li>
+<a href="/courses/">
+<span class="icon">
+<ion-icon name="book-outline"></ion-icon>
+</span>
+<span class="title">Курсы</span>
+</a>
+</li>
+
+<li>
+<a href="/ld">
+<span class="icon">
+<ion-icon name="lock-closed-outline"></ion-icon>
+</span>
+<span class="title">Личные данные</span>
+</a>
+</li>
+
+<li>
+<a href="/">
+<span class="icon">
+<ion-icon name="log-out-outline"></ion-icon>
+</span>
+<span class="title">Выйти</span>
+</a>
+</li>
+</ul>
+</div>
+
+<div class="main">
+    <div class="topbar">
+      <div class="toggle">
+        <ion-icon name="menu-outline"></ion-icon>
+      </div>
+
+      <div class="user" id="userBlock">
+        <p class="user-name">
+         
+        </p>
+        <img id="img-block" src="" alt="Аватарка" />
+      </div>
+    </div>
+
+    <div class="details">
+        <div class="recentOrders">
+        <div class="cardHeader">
+        </div>
+        <body>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label for="name">Ваше имя:</label>
+                    <input type="text" id="name" name="name">
+                </div>
+        
+                <div class="form-group">
+                    <label for="surname">Ваша фамилия:</label>
+                    <input type="text" id="surname" name="surname">
+                </div>
+        
+                <div class="form-group">
+                    <label for="email">Ваш email:</label>
+                    <input type="email" id="email" name="email">
+                </div>
+        
+                <div class="form-group">
+                    <label for="password">Ваш пароль:</label>
+                    <input type="password" id="password" name="password">
+                </div>
+        
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+<script src="js/cabinet.js"></script>
+
+<!— ====== ionicons ======= —>
+<script
+type="module"
+src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+nomodule
+src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+></script>
+</body>
+</html>
