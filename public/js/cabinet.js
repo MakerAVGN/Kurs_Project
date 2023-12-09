@@ -73,7 +73,58 @@ toggle.onclick = function () {
       });
     });
   });
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const profileForm = document.getElementById('profileForm');
+
+    profileForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(profileForm);
+
+        // Check if any of the fields are empty
+        let isEmpty = false;
+        formData.forEach(value => {
+            if (value.trim() === '') {
+                isEmpty = true;
+            }
+        });
+
+        if (isEmpty) {
+            console.log('Please fill in all fields');
+            return;
+        }
+
+        fetch('/cabinet/change_profile_pic', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(Object.fromEntries(formData)),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response from server:', data);
+
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    console.log('Profile information updated successfully');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating profile information:', error);
+            });
+    });
+});
   
+
   
   
   
