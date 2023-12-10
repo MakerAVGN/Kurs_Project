@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменить пароль</title>
+    <link rel="stylesheet" href="/css/cabinet.css" />
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <%- include ('navigation') %>
+        <%- include ('topbar') %>
+
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                    </div>
+
+                    <body>
+                        <form id="resetForm" method="POST" action="/cabinet/reset">
+                            <div class="form-group">
+                                <label for="password">Ваш старый пароль:</label>
+                                <input type="password" id="password" name="oldPassword"
+                                    placeholder="Введите текущий пароль">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Ваш новый пароль:</label>
+                                <input type="password" id="password" name="newPassword"
+                                    placeholder="Введите новый пароль">
+                            </div>
+                            <button type="submit">Отправить</button>
+                        </form>
+                </div>
+                </form>
+
+            </div>
+
+            <%- include ('modalpfp') %>
+</body>
+
+</html>

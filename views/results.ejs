@@ -1,84 +1,30 @@
 <!-- views/results.ejs -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Results</title>
 </head>
+
 <body>
-    <div class="container">
-        <div class="navigation">
-        <ul>
-        <li>
-        <a href="/">
-        <span class="title">EnglishPlus+</span>
-        </a>
-        </li>
-        
-        <li>
-        <a href="/cabinet/">
-        <span class="icon">
-        <ion-icon name="home-outline"></ion-icon>
-        </span>
-        <span class="title">Главная</span>
-        </a>
-        </li>
-        
-        <li>
-        <a href="/courses/">
-        <span class="icon">
-        <ion-icon name="book-outline"></ion-icon>
-        </span>
-        <span class="title">Курсы</span>
-        </a>
-        </li>
-        
-        <li>
-        <a href="/ld">
-        <span class="icon">
-        <ion-icon name="lock-closed-outline"></ion-icon>
-        </span>
-        <span class="title">Личные данные</span>
-        </a>
-        </li>
-        
-        <li>
-        <a href="/">
-        <span class="icon">
-        <ion-icon name="log-out-outline"></ion-icon>
-        </span>
-        <span class="title">Выйти</span>
-        </a>
-        </li>
-        </ul>
-        </div>
-        
-        <!— ========================= Main ==================== —>
-        <div class="main">
-        <div class="topbar">
-        <div class="toggle">
-        <ion-icon name="menu-outline"></ion-icon>
-        </div>
-        
-        <div class="user" id="userBlock">
-        <p class="user-name">
-        
-        </p>
-        <img id="img-block" src="" alt="Аватарка" />
-        </div>
-        </div>
-        
-        <div class="details">
-        <div class="recentOrders">
-        <div class="cardHeader">
-            <h1>Test Results</h1>
-            <p>Total Points: <%= totalPoints %></p>
-            <p>Your Points: <%= userPoints %></p>
-            <a href="/cabinet">Back to Home</a>
-        </div>
-        </div>
-        </div>
+    <%- include('navigation')%>
+    <%- include('topbar')%>
+        <!—=========================Main====================—>
+                <div class="details">
+                    <div class="recentOrders">
+                        <div class="cardHeader">
+                            <h1>Test Results</h1>
+                            <p>Total Points: <%= totalPoints %>
+                            </p>
+                            <p>Your Points: <%= userPoints %>
+                            </p>
+                            <a href="/cabinet">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
 </body>
+
 </html>

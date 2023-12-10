@@ -1,137 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Личный кабинет</title>
-    <!-- ======= Styles ====== -->
-    <link rel="stylesheet" href="/css/cabinet.css" />
-  </head>
 
-  <body>
-    <!-- =============== Navigation ================ -->
-    <%- include ('navigation') %>
-      <!-- ========================= Main ==================== -->
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Личный кабинет</title>
+  <!-- ======= Styles ====== -->
+  <link rel="stylesheet" href="/css/cabinet.css" />
+</head>
+
+<body>
+  <!-- =============== Navigation ================ -->
+  <%- include ('navigation') %>
+    <!-- ========================= Main ==================== -->
     <%- include ('topbar') %>
-        <!-- ======================= Cards ================== -->
-        <div class="cardBox">
-          <div class="card">
-            <div>
-              <div class="numbers"><%= taskInfo[0].passedCourses %></div>
-              <div class="cardName">Курсов пройдено</div>
+      <!-- ======================= Cards ================== -->
+      <div class="cardBox">
+        <div class="card">
+          <div>
+            <div class="numbers">
+              <%= taskInfo[0].passedCourses %>
             </div>
-
-            <div class="iconBx">
-              <ion-icon name="checkmark-outline"></ion-icon>
-            </div>
+            <div class="cardName">Курсов пройдено</div>
           </div>
 
-          <div class="card">
-            <div>
-              <div class="numbers"><%= taskInfo[0].boughtCourses %></div>
-              <div class="cardName">Купленных курсов</div>
-            </div>
-
-            <div class="iconBx">
-              <ion-icon name="cart-outline"></ion-icon>
-            </div>
-          </div>
-
-
-
-          <div class="card">
-            <div>
-              <div class="numbers"><%= taskInfo[0].TotalPoints %></div>
-              <div class="cardName">Очков рейтинга</div>
-            </div>
-
-            <div class="iconBx">
-              <ion-icon name="bar-chart-outline"></ion-icon>
-            </div>
+          <div class="iconBx">
+            <ion-icon name="checkmark-outline"></ion-icon>
           </div>
         </div>
 
-        <!-- ================ Order Details List ================= -->
-        <div class="details">
-          <div class="recentOrders">
-            <div class="cardHeader">
-              <h2>Таблица пройденных этапов</h2>
-              <a href="/cabinet/courses" class="btn">Смотреть все</a>
+        <div class="card">
+          <div>
+            <div class="numbers">
+              <%= taskInfo[0].boughtCourses %>
             </div>
-
-            <% if (taskInfo[0].boughtCourses === 0) { %>
-              У вас не куплено ни одного курса
-            <% } else { %>
-            <table>
-              <thead>
-                <tr>
-                  <td>Название курса</td>
-                  <td>Максимальные баллы</td>
-                  <td>Заработанные баллы</td>
-                  <td>Статус</td>
-                </tr>
-              </thead>
-
-              <tbody>
-                <% for (let id = 0; id < taskInfo.length; id++) { %>
-                <tr>
-                  <td><%= taskInfo[id].taskName %></td>
-                  <td><%= taskInfo[id].points %></td>
-                  <td><%= taskInfo[id].userPoints %></td>
-                  <td>
-                    <% if (taskInfo[id].status === "Выполняется") { %>
-                      <span class="status delivered"><%= taskInfo[id].status %></span>
-                      <% } else if (taskInfo[id].status === "Приостановлен") { %>
-                        <span class="status pending"><%= taskInfo[id].status %></span>
-                        <% } else if (taskInfo[id].status === "Пройден") { %>
-                          <span class="status inProgress">Пройден</span>
-                      <% } else { %>
-                        <span class="status return">Заброшен</span>
-                    <% } %>
-                  </td>
-                </tr>
-                <% } %>
-              </tbody>
-            </table>
-            <% } %>
+            <div class="cardName">Купленных курсов</div>
           </div>
 
-          <!-- ================= New Customers ================ -->
-          <div class="recentCustomers">
-            <div class="cardHeader">
-              <h2>Другие ученики</h2>
+          <div class="iconBx">
+            <ion-icon name="cart-outline"></ion-icon>
+          </div>
+        </div>
+
+
+
+        <div class="card">
+          <div>
+            <div class="numbers">
+              <%= taskInfo[0].TotalPoints %>
             </div>
-            <table>
-              <% for (let id = 0; id < otherStudents.length; id++) { %>
+            <div class="cardName">Очков рейтинга</div>
+          </div>
+
+          <div class="iconBx">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================ Order Details List ================= -->
+      <div class="details">
+        <div class="recentOrders">
+          <div class="cardHeader">
+            <h2>Таблица пройденных этапов</h2>
+            <a href="/cabinet/courses" class="btn">Смотреть все</a>
+          </div>
+
+          <% if (taskInfo[0].boughtCourses===0) { %>
+            У вас не куплено ни одного курса
+            <% } else { %>
+              <table>
+                <thead>
+                  <tr>
+                    <td>Название курса</td>
+                    <td>Максимальные баллы</td>
+                    <td>Заработанные баллы</td>
+                    <td>Статус</td>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% for (let id=0; id < taskInfo.length; id++) { %>
+                    <tr>
+                      <td>
+                        <%= taskInfo[id].taskName %>
+                      </td>
+                      <td>
+                        <%= taskInfo[id].points %>
+                      </td>
+                      <td>
+                        <%= taskInfo[id].userPoints %>
+                      </td>
+                      <td>
+                        <% if (taskInfo[id].status==="Выполняется" ) { %>
+                          <span class="status delivered">
+                            <%= taskInfo[id].status %>
+                          </span>
+                          <% } else if (taskInfo[id].status==="Приостановлен" ) { %>
+                            <span class="status pending">
+                              <%= taskInfo[id].status %>
+                            </span>
+                            <% } else if (taskInfo[id].status==="Пройден" ) { %>
+                              <span class="status inProgress">Пройден</span>
+                              <% } else { %>
+                                <span class="status return">Заброшен</span>
+                                <% } %>
+                      </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+              </table>
+              <% } %>
+        </div>
+
+        <!-- ================= New Customers ================ -->
+        <div class="recentCustomers">
+          <div class="cardHeader">
+            <h2>Другие ученики</h2>
+          </div>
+          <table>
+            <% for (let id=0; id < otherStudents.length; id++) { %>
               <tr>
                 <td width="60px">
                   <div class="imgBx">
-                  <img src="<%= otherStudents[id].profile_pic || '/images/default_pfp.jpg' %>" alt="Аватарка">
+                    <img src="<%= otherStudents[id].profile_pic || '/images/default_pfp.jpg' %>" alt="Аватарка">
                   </div>
                 </td>
                 <td>
                   <h4>
-                    <%= otherStudents[id].name %> <%= otherStudents[id].surname %><br />
-                    <span><%= otherStudents[id].email %></span>
+                    <%= otherStudents[id].name %>
+                      <%= otherStudents[id].surname %><br />
+                        <span>
+                          <%= otherStudents[id].email %>
+                        </span>
                   </h4>
                 </td>
               </tr>
               <% } %>
-            </table>
-          </div>
+          </table>
         </div>
       </div>
-    </div>
-    <%- include ('modalpfp') %>
-    <!-- ====== ionicons ======= -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-  </body>
+      </div>
+      </div>
+      <%- include ('modalpfp') %>
+</body>
+
 </html>
