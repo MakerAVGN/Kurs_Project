@@ -15,45 +15,107 @@
         <%- include('navigation') %>
             <%- include('topbar') %>
                 <!—=========================Main====================—>
-
-                    <div class="details">
-                        <div class="recentOrders">
-                            <div class="cardHeader">
-                                <% if (tasksInfo.length> 0) { %>
-                                    <h1>
+                        <div class="taskContainer" >
+                                <!-- <% if (tasksInfo.length> 0) { %>
+                                    <div class="task-text">
+                                    <h2>
                                         <%= tasksInfo[questionID].taskName %>
-                                    </h1>
+                                    </h2>
+                                    <p>Points: <%= tasksInfo[questionID].points %>
+                                    </p>
+                                    </div>
+
+
+                                    <div class="text-description">
                                     <p>
                                         <%= tasksInfo[questionID].taskDescription %>
                                     </p>
-                                    <p>Points: <%= tasksInfo[questionID].points %>
-                                    </p>
-
-                                    <form
+                                    </div>
+                                    <form class="task-form"
                                         action="<%= (questionID === tasksInfo.length - 1) ? `/cabinet/courses/${courseID}/submit-answers` : `/cabinet/courses/${courseID}/next-question` %>"
                                         method="POST">
 
                                         <% const options=JSON.parse(tasksInfo[questionID].options); %>
                                             <% options.options.forEach((option, index)=> { %>
+                                            <div class="task-answers">
                                                 <label>
                                                     <input type="radio" name="answer" value="<%= index %>" required>
                                                     <%= option %>
                                                 </label>
-                                                <br>
+                                            </div>
                                                 <% }); %>
-
+                                            <div class="task-btn-container">
                                                     <button type="submit">
                                                         <%= (questionID===tasksInfo.length - 1) ? "Submit Answers"
                                                             : "Next Question" %>
                                                     </button>
+                                                </div>
                                     </form>
                                     <% } else { %>
                                         <p>No tasks available.</p>
-                                        <% } %>
-                            </div>
-                        </div>
-                    </div>
+                                        <% } %> -->
+                                        <!-- <div class="task-text">
+                                            <h2 >
+                                                Английский язык 60+
+                                            </h2>
+                                            <p>Points: 5</p>
+                                        </div>
+                                        <div class="text-description">
+                                            <p>
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, cum eos labore ab voluptatum recusandae vel laboriosam expedita reiciendis blanditiis quaerat nihil aliquid veritatis nam aliquam architecto? Amet, repudiandae debitis!
+                                            </p>   
+                                        </div>
+                                        <form class="task-form" action="">
+                                            <div class="task-answers">
+                                                <label>
+                                                    <input type="radio" name="answer">
+                                                    Ответ 1
+                                                </label>
+                                                  <label>
+                                                    <input type="radio" name="answer">
+                                                    Ответ 2
+                                                  </label>
+                                                  <label>
+                                                    <input type="radio" name="answer">
+                                                    Ответ 3
+                                                  </label>
+                                                  <label>
+                                                    <input type="radio" name="answer">
+                                                    Ответ 4
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="answer">
+                                                    Ответ 5
+                                                </label>
+                                            </div>
+                                            <div class="task-btn-container">
+                                                <button type="submit" class="task-btn"> Ответить</button>
+                                            </div>
+                                        </form>
+                                           
+                        </div> -->  
+
 
     </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const labels = document.querySelectorAll('.task-form label');
 
+  labels.forEach(function(label) {
+    label.addEventListener('click', function() {
+      // Удалить класс 'selected' у всех label
+      labels.forEach(function(otherLabel) {
+        otherLabel.classList.remove('selected');
+      });
+
+      // Добавить класс 'selected' к текущему label
+      label.classList.add('selected');
+
+      // Пометить соответствующий input как выбранный
+      const input = label.querySelector('input');
+      input.checked = true;
+    });
+  });
+});
+</script>
 </html>

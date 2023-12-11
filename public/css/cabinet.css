@@ -200,32 +200,28 @@ body {
 }
 
 .user {
+  display: flex;
   position: relative;
   width: 100px;
   height: 100px;
-  border-radius: 50%;
-  /* overflow: hidden; */
   cursor: pointer;
-  justify-content: space-between;
+  margin-right: 50px;
 }
 
 .user img {
-  position: absolute;
-  margin: 25px 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  margin: 30px auto;
 }
 
 .user-name {
-  position: absolute;
-  right: 100px;
-  top: 30px;
-  width: 190px;
+  width: auto;
   font-weight: 600;
+  margin: auto;
+  line-height: 20px;
 }
-
 /* ======================= Cards ====================== */
 .cardBox {
   position: relative;
@@ -303,6 +299,7 @@ body {
 .cardHeader h2 {
   font-weight: 600;
   color: var(--blue);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 .cardHeader .btn {
   position: relative;
@@ -348,11 +345,12 @@ body {
 }
 .status.delivered {
   padding: 2px 4px;
-  background: #8de02c;
+  background: #70bd19;
   color: var(--white);
   border-radius: 4px;
   font-size: 14px;
   font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 .status.pending {
   padding: 2px 4px;
@@ -553,7 +551,7 @@ h2 {
   padding-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 50px 30px;
+  gap: 50px 20px;
   box-sizing: border-box;
 }
 
@@ -567,27 +565,35 @@ h2 {
   border: rgba(0, 0, 0, 0.4) 2px solid;
   border-radius: 15px;
   padding: 20px 10px 0 10px;
-  height: 150px;
+  height: 180px;
   box-sizing: border-box;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
 }
 
 .curse-block:hover {
   background-color: #f0f0f0;
+  scale: 1.1;
 }
 
 .curse-text-pointer {
-  padding-top: 35px;
+  padding-top: 50px;
   position: relative;
 }
 
 .curse-text-pointer span {
   position: absolute;
+  text-align: center;
   right: 15px;
-  bottom: -20px;
-  border-radius: 50%; /* Set border-radius to 50% for a circle */
+  bottom: -30px;
+  width: 40px;
+  line-height: 40px;
+  border-radius: 100%;
+  font-size: 14px;
   border: 3px rgb(83, 194, 9) solid;
-  padding: 20px;
-  box-sizing: content-box; /* Optional: Ensure padding doesn't affect the overall size */
+  padding: 15px;
+  box-sizing: content-box;
+  
 }
 
 .dark-mode {
@@ -595,30 +601,155 @@ h2 {
   background-color: #373737;
 }
 
-form {
+.reset-form {
   max-width: 400px;
 }
 
-.form-group {
+.reset-form .form-group {
   margin-bottom: 20px;
 }
 
-label {
+.reset-form label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-input {
+.reset-form input {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
 }
 
-button {
+.reset-form button {
   padding: 10px;
   background-color: #4caf50;
   color: #fff;
   border: none;
   cursor: pointer;
+}
+
+
+.taskContainer{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  padding: 20px;
+  border-radius: 20px;
+  width: 600px;
+  height: 340px;
+  background-color: #705bac;
+  border: 3px solid #604d94 ;
+}
+
+.task-text{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  color: #ECF8F8;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  
+}
+
+.text-description{
+  margin: 50px 0;
+  color: #ECF8F8;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  
+}
+
+.task-answers{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.task-form label {
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: #ED6A5A;
+  transition: all 0.3s ease-in-out;
+  color: #321325;
+  font-weight: 500;
+}
+
+.task-form input[type="radio"]{
+  display: none;
+}
+.task-form label:hover{
+  scale: 1.1;
+}
+
+.task-form label.selected {
+  background-color: #000000;
+  color:#EEE5E9 ;
+  
+  /* Любой другой цвет, который вы хотите использовать для выделения */
+}
+
+.task-btn-container{
+  margin-top: 5px;
+  width: 100%;
+  text-align: center;
+}
+.task-btn{
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #F7B801;
+  color: #070707;
+  font-weight: 600;
+  border: 4px 2px solid black;
+}
+.task-btn:hover{
+  background-color: rgb(218, 181, 0);
+}
+
+.task-btn {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  outline: none;
+  overflow: hidden;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.task-btn:hover {
+  background-color: #d49f00;
+  transform: translateY(2px); /* Насколько опустить кнопку при наведении */
+}
+
+.task-btn:before,
+.task-btn:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(100%);
+  transition: transform 0.3s;
+}
+
+.task-btn:before {
+  top: 0;
+  left: 0;
+}
+
+.task-btn:after {
+  bottom: 0;
+  right: 0;
+}
+
+.task-btn:hover:before,
+.task-btn:hover:after {
+  transform: translateY(0);
 }
