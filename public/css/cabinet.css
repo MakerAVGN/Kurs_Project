@@ -215,7 +215,7 @@ body {
   position: absolute;
   right: 100px;
   top: 30px;
-  width: 190px;
+  width: 130px;
   font-weight: 600;
 }
 
@@ -540,4 +540,27 @@ h2 {
 
 .modalContent button:hover {
   background-color: #45a049;
+}
+
+
+
+/*------------ Courses ------------- */
+
+.course-container{
+  display: grid;
+  box-sizing: border-box;
+}
+
+.curse-block{
+  border: rgba(0, 0, 0, 0.4) 1px solid;
+  padding: 20px 10px 40px 10px;
+  margin: 10px 20px;
+  display: flex;
+}
+
+.curse-block p, .curse-block span{
+  padding-top: 35px;
+  text-align: right;
+  align-items: center;
+  justify-content: center;
 }

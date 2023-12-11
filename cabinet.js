@@ -112,4 +112,59 @@ router.get("/personal", (req, res) => {
   res.render("personal");
 });
 
+router.get("/", (req, res) => {
+  db.query(
+  `SELECT * FROM students WHERE studentID = ?`,
+  [req.session.userID],
+  (err, student) => {
+  if (err) {
+  return res.status(500).json({ err });
+  }
+  
+  if (student.length === 0) {
+  return res.status(404).json({ err });
+  }
+  
+  // Continue with the original queries since the student exists
+  db.query(
+  `SELECT *, COUNT(*) OVER () AS boughtCourses, SUM(userPoints) OVER () AS TotalPoints, SUM(CASE WHEN status = 'Пройден' THEN 1 ELSE 0 END) OVER () AS passedCourses FROM results WHERE studentID = ?`,
+  [req.session.userID],
+  (err, taskResults) => {
+  if (err) {
+  return res.status(500).json({ err });
+  }
+  
+  db.query(
+  `SELECT name, surname, email, profile_pic FROM students WHERE studentID != ? ORDER BY studentID DESC LIMIT 5`,
+  [req.session.userID],
+  (err, otherStudentsResult) => {
+  if (err) {
+  res.status(500).json({ err });
+  throw err;
+  } else {
+  db.query(
+  `SELECT resultID, taskName FROM results WHERE studentID = ?`,
+  [req.session.userID],
+  (err, result) => {
+  if (err) {
+  res.status(500).json({ err });
+  } else {
+  res.render("courses", {
+  studentInfo: student[0],
+  taskInfo: taskResults,
+  otherStudents: otherStudentsResult,
+  classesInfo: result,
+  });
+  }
+  }
+  );
+  }
+  }
+  );
+  }
+  );
+  }
+  );
+  });
+
 module.exports = router;
