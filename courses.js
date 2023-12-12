@@ -99,18 +99,14 @@ router.post("/:id/next-question", (req, res) => {
 
 router.post("/:id/submit-answers", (req, res) => {
   const selectedAnswer = parseInt(req.body.answer, 10);
-
   db.query(
     `SELECT taskID, correctOption, points FROM tasks WHERE taskName = ? ORDER BY taskID`,
     [req.session.currentTaskName],
     (err, tasks) => {
-      if (err) {
-        return res.status(500).json({ err });
-      }
+      if (err) res.status(500).json({ err });
       const currentTask = tasks[req.session.currentQuestionIndex];
-      if (selectedAnswer === currentTask.correctOption) {
+      if (selectedAnswer === currentTask.correctOption)
         req.session.userPoints += currentTask.points;
-      }
       db.query(
         `UPDATE results SET status = ?, userPoints = ? WHERE taskName = ? AND studentID = ?`,
         [
@@ -120,21 +116,17 @@ router.post("/:id/submit-answers", (req, res) => {
           req.session.userID,
         ],
         (err) => {
-          if (err) {
-            return res.status(500).json({ err });
-          }
+          if (err) return res.status(500).json({ err });
 
           req.session.currentQuestionIndex++;
-
-          if (req.session.currentQuestionIndex < tasks.length) {
+          if (req.session.currentQuestionIndex < tasks.length)
             res.redirect(`/cabinet/courses/${req.params.id}/next-question`);
-          } else {
+          else {
             // Все вопросы пройдены, можно обновить общее количество баллов
             const totalPoints = tasks.reduce(
               (sum, task) => sum + task.points,
               0
             );
-
             // Обновление сессии
             userPoints = req.session.userPoints;
             req.session.currentQuestionIndex = 0;
@@ -143,11 +135,14 @@ router.post("/:id/submit-answers", (req, res) => {
               `SELECT * FROM students WHERE studentID = ?`,
               [req.session.userID],
               (err, student) => {
-                res.render(`results`, {
-                  totalPoints: totalPoints,
-                  userPoints: userPoints,
-                  studentInfo: student[0],
-                });
+                if (err) res.status(500).json({ err });
+                else {
+                  res.render(`results`, {
+                    totalPoints: totalPoints,
+                    userPoints: userPoints,
+                    studentInfo: student[0],
+                  });
+                }
               }
             );
           }

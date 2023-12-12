@@ -25,32 +25,21 @@ router.get("/", (req, res) => {
     `SELECT * FROM students WHERE studentID = ?`,
     [req.session.userID],
     (err, student) => {
-      if (err) {
-        return res.status(500).json({ err });
-      }
-
-      if (student.length === 0) {
-        return res.status(404).json({ err });
-      }
-
-      // Continue with the original queries since the student exists
+      if (err) return res.status(500).json({ err });
+      if (student.length === 0) return res.status(404).json({ err });
+      // Студент существует
       db.query(
         `SELECT *, COUNT(*) OVER () AS boughtCourses, SUM(userPoints) OVER () AS TotalPoints, SUM(CASE WHEN status = 'Пройден' THEN 1 ELSE 0 END) OVER () AS passedCourses FROM results WHERE studentID = ?`,
         [req.session.userID],
         (err, results) => {
-          if (err) {
-            return res.status(500).json({ err });
-          }
-
+          if (err) return res.status(500).json({ err });
           db.query(
             `SELECT name, surname, email, profile_pic FROM students WHERE studentID != ? ORDER BY studentID DESC LIMIT 5`,
             [req.session.userID],
             (err, otherStudentsResult) => {
-              if (err) {
-                res.status(500).json({ err });
-                throw err;
-              } else {
-                // Check if results is defined and has at least one element
+              if (err) res.status(500).json({ err });
+              else {
+                // Есть хотя бы один купленный курс
                 if (!results || results.length === 0) {
                   return res.render("cabinet", {
                     studentInfo: student[0],
@@ -82,21 +71,15 @@ router.post("/change_profile_pic", (req, res) => {
   const newProfilePic = req.body.profilePicAddress;
   const imageExtensions = /\.(jpg|jpeg|png|gif|webp)/i;
   const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
-
   if (!urlRegex.test(newProfilePic) || !imageExtensions.test(newProfilePic)) {
     return res.status(400).json({ error: "Invalid image URL" });
   }
-
   db.query(
     `UPDATE students SET profile_pic = ? WHERE studentID = ?`,
     [newProfilePic, req.session.userID],
     (err, result) => {
-      if (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal server error" });
-      } else {
-        res.status(200).json({ redirect: "/cabinet" });
-      }
+      if (err) res.status(500).json({ err });
+      else res.status(200).json({ redirect: "/cabinet" });
     }
   );
 });
@@ -210,6 +193,7 @@ router.get("/addCourse", (req, res) => {
 router.post("/addCourse", (req, res) => {
   const taskName = req.body.taskName;
   db.query(`SELECT resultID FROM results ORDER BY resultID`, (err, results) => {
+    if (err) res.status(500).json({ err });
     let nextResultID;
     if (results.length === 0 || results[0].resultID !== 0) {
       // Если база данных пуста или первый элемент не 0, начинаем с 0
@@ -227,7 +211,7 @@ router.post("/addCourse", (req, res) => {
         nextResultID = results.length;
       }
     }
-    let points;
+    let points = 25;
     switch (taskName) {
       case "Английский язык 50+":
         points = 15;
@@ -238,14 +222,19 @@ router.post("/addCourse", (req, res) => {
       case "Английский язык 80+":
         points = 50;
         break;
+      case "Английский язык 90+":
+        points = 75;
+        break;
+      case "Английский язык 100+":
+        points = 100;
+        break;
       default:
-        points = 25;
         break;
     }
     db.query(
       "INSERT INTO results (resultID, studentID, taskName, points, status, userPoints) VALUES (?, ?, ?, ?, ?, ?)",
       [nextResultID, req.session.userID, taskName, points, "Выполняется", 0],
-      (err, result) => {
+      (err) => {
         if (err) res.status(500).json({ err });
         else {
           res.status(200).json({ redirect: "/cabinet" });
