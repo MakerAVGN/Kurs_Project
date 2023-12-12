@@ -1,239 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Личный кабинет</title>
-    <!-- ======= Styles ====== -->
-    <link rel="stylesheet" href="/css/cabinet.css" />
-  </head>
 
-  <body>
-    <!-- =============== Navigation ================ -->
-    <div class="container">
-      <div class="navigation">
-        <ul>
-          <li>
-            <a href="/">
-              <span class="title">EnglishPlus+</span>
-            </a>
-          </li>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Личный кабинет</title>
+  <!-- ======= Styles ====== -->
+  <link rel="stylesheet" href="/css/cabinet.css" />
+</head>
 
-          <li>
-            <a href="/cabinet/">
-              <span class="icon">
-                <ion-icon name="home-outline"></ion-icon>
-              </span>
-              <span class="title">Главная</span>
-            </a>
-          </li>
+<body>
+  <!-- =============== Navigation ================ -->
+  <%- include ('navigation') %>
+    <!-- ========================= Main ==================== -->
+    <%- include ('topbar') %>
+      <!-- ======================= Cards ================== -->
+      <div class="cardBox">
+        <div class="card">
+          <div>
+            <div class="numbers">
+              <%= taskInfo[0].passedCourses %>
+            </div>
+            <div class="cardName">Курсов пройдено</div>
+          </div>
 
-          <li>
-            <a href="courses">
-              <span class="icon">
-                <ion-icon name="book-outline"></ion-icon>
-              </span>
-              <span class="title">Курсы</span>
-            </a>
-          </li>
+          <div class="iconBx">
+            <ion-icon name="checkmark-outline"></ion-icon>
+          </div>
+        </div>
 
-          <li>
-            <a href="#">
-              <span class="icon">
-                <ion-icon name="chatbubble-outline"></ion-icon>
-              </span>
-              <span class="title">Сообщения</span>
-            </a>
-          </li>
+        <div class="card">
+          <div>
+            <div class="numbers">
+              <%= taskInfo[0].boughtCourses %>
+            </div>
+            <div class="cardName"><a href=""></a>Купленных курсов</div>
+          </div>
 
-          <li>
-            <a href="#">
-              <span class="icon">
-                <ion-icon name="help-outline"></ion-icon>
-              </span>
-              <span class="title">Помощь</span>
-            </a>
-          </li>
+          <div class="iconBx">
+            <ion-icon name="cart-outline"></ion-icon>
+          </div>
+        </div>
 
-          <li>
-            <a href="#">
-              <span class="icon">
-                <ion-icon name="settings-outline"></ion-icon>
-              </span>
-              <span class="title">Настройки</span>
-            </a>
-          </li>
 
-          <li>
-            <a href="#">
-              <span class="icon">
-                <ion-icon name="lock-closed-outline"></ion-icon>
-              </span>
-              <span class="title">Личные данные</span>
-            </a>
-          </li>
 
-          <li>
-            <a href="/">
-              <span class="icon">
-                <ion-icon name="log-out-outline"></ion-icon>
-              </span>
-              <span class="title">Выйти</span>
-            </a>
-          </li>
-        </ul>
+        <div class="card">
+          <div>
+            <div class="numbers">
+              <%= taskInfo[0].TotalPoints %>
+            </div>
+            <div class="cardName">Очков рейтинга</div>
+          </div>
+
+          <div class="iconBx">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+          </div>
+        </div>
       </div>
 
-      <!-- ========================= Main ==================== -->
-      <div class="main">
-        <div class="topbar">
-          <div class="toggle">
-            <ion-icon name="menu-outline"></ion-icon>
+      <!-- ================ Order Details List ================= -->
+      <div class="details">
+        <div class="recentOrders">
+          <div class="cardHeader">
+            <h2>Таблица пройденных этапов</h2>
+            <a href="/cabinet/courses" class="btn">Смотреть все</a>
           </div>
 
-          <div class="user" id="userBlock">
-            <p class="user-name">
-              <%= studentInfo.name %> <%= studentInfo.surname %>
-            </p>
-            <img id="img-block" src="<%= studentInfo.profile_pic || '/images/default_pfp.jpg' %>" alt="Аватарка" />
-          </div>
-        </div>
-
-        <!-- ======================= Cards ================== -->
-        <div class="cardBox">
-          <div class="card">
-            <div>
-              <div class="numbers"><%= taskInfo[0].passedCourses %></div>
-              <div class="cardName">Курсов пройдено</div>
-            </div>
-
-            <div class="iconBx">
-              <ion-icon name="checkmark-outline"></ion-icon>
-            </div>
-          </div>
-
-          <div class="card">
-            <div>
-              <div class="numbers"><%= taskInfo[0].boughtCourses %></div>
-              <div class="cardName">Купленных курсов</div>
-            </div>
-
-            <div class="iconBx">
-              <ion-icon name="cart-outline"></ion-icon>
-            </div>
-          </div>
-
-
-
-          <div class="card">
-            <div>
-              <div class="numbers"><%= taskInfo[0].TotalPoints %></div>
-              <div class="cardName">Очков рейтинга</div>
-            </div>
-
-            <div class="iconBx">
-              <ion-icon name="bar-chart-outline"></ion-icon>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================ Order Details List ================= -->
-        <div class="details">
-          <div class="recentOrders">
-            <div class="cardHeader">
-              <h2>Таблица пройденных этапов</h2>
-              <a href="#" class="btn">Смотреть все</a>
-            </div>
-
-            <% if (taskInfo[0].boughtCourses === 0) { %>
-              У вас не куплено ни одного курса
+          <% if (taskInfo[0].boughtCourses===0) { %>
+            У вас не куплено ни одного курса
             <% } else { %>
-            <table>
-              <thead>
-                <tr>
-                  <td>Название курса</td>
-                  <td>Максимальные баллы</td>
-                  <td>Заработанные баллы</td>
-                  <td>Статус</td>
-                </tr>
-              </thead>
+              <table>
+                <thead>
+                  <tr>
+                    <td>Название курса</td>
+                    <td>Максимальные баллы</td>
+                    <td>Заработанные баллы</td>
+                    <td>Статус</td>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <% for (let id = 0; id < taskInfo.length; id++) { %>
-                <tr>
-                  <td><%= taskInfo[id].taskName %></td>
-                  <td><%= taskInfo[id].points %></td>
-                  <td><%= taskInfo[id].userPoints %></td>
-                  <td>
-                    <% if (taskInfo[id].status === "Выполняется") { %>
-                      <span class="status delivered"><%= taskInfo[id].status %></span>
-                      <% } else if (taskInfo[id].status === "Приостановлен") { %>
-                        <span class="status pending"><%= taskInfo[id].status %></span>
-                        <% } else if (taskInfo[id].status === "Пройден") { %>
-                          <span class="status inProgress">Пройден</span>
-                      <% } else { %>
-                        <span class="status return">Заброшен</span>
+                <tbody>
+                  <% for (let id=0; id < taskInfo.length; id++) { %>
+                    <tr>
+                      <td>
+                        <%= taskInfo[id].taskName %>
+                      </td>
+                      <td>
+                        <%= taskInfo[id].points %>
+                      </td>
+                      <td>
+                        <%= taskInfo[id].userPoints %>
+                      </td>
+                      <td>
+                        <% if (taskInfo[id].status==="Выполняется" ) { %>
+                          <span class="status delivered">
+                            <%= taskInfo[id].status %>
+                          </span>
+                          <% } else if (taskInfo[id].status==="Приостановлен" ) { %>
+                            <span class="status pending">
+                              <%= taskInfo[id].status %>
+                            </span>
+                            <% } else if (taskInfo[id].status==="Пройден" ) { %>
+                              <span class="status inProgress">Пройден</span>
+                              <% } else { %>
+                                <span class="status return">Заброшен</span>
+                                <% } %>
+                      </td>
+                    </tr>
                     <% } %>
-                  </td>
-                </tr>
-                <% } %>
-              </tbody>
-            </table>
-            <% } %>
-          </div>
+                </tbody>
+              </table>
+              <% } %>
+        </div>
 
-          <!-- ================= New Customers ================ -->
-          <div class="recentCustomers">
-            <div class="cardHeader">
-              <h2>Другие ученики</h2>
-            </div>
-            <table>
-              <% for (let id = 0; id < otherStudents.length; id++) { %>
+        <!-- ================= New Customers ================ -->
+        <div class="recentCustomers">
+          <div class="cardHeader">
+            <h2>Другие ученики</h2>
+          </div>
+          <table>
+            <% for (let id=0; id < otherStudents.length; id++) { %>
               <tr>
                 <td width="60px">
                   <div class="imgBx">
-                  <img src="<%= otherStudents[id].profile_pic || '/images/default_pfp.jpg' %>" alt="">
+                    <img src="<%= otherStudents[id].profile_pic || '/images/default_pfp.jpg' %>" alt="Аватарка">
                   </div>
                 </td>
                 <td>
                   <h4>
-                    <%= otherStudents[id].name %> <%= otherStudents[id].surname %><br />
-                    <span><%= otherStudents[id].email %></span>
+                    <%= otherStudents[id].name %>
+                      <%= otherStudents[id].surname %><br />
+                        <span>
+                          <%= otherStudents[id].email %>
+                        </span>
                   </h4>
                 </td>
               </tr>
               <% } %>
-            </table>
-          </div>
+          </table>
         </div>
       </div>
-    </div>
-    <div id="modalContentImg">
-      <div class="modalConteiner">
-        <div class="modalContent">
-        <img class="close-modal-img" id="close-modal-img" width="20" height="20" src="https://img.icons8.com/ios/50/delete-sign--v1.png" alt="delete-sign--v1" />
-        <h2>Изменить изображение профиля</h2>
-        <form method="POST" class="modalContent" id="changeProfilePicForm">
-          <label for="img">Введите URL-адрес фотографии</label>
-          <input type="text" id="profilePicAddress" name="profilePicAddress" />
-          <button type="submit"> Сохранить </button>
-        </form>
-        </div>
-      </div>
-    </div>
+      <%- include ('modalpfp') %>
+</body>
 
-    <!-- =========== Scripts =========  -->
-    <script src="js/cabinet.js"></script>
-
-    <!-- ====== ionicons ======= -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-  </body>
 </html>

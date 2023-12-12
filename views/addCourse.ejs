@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/cabinet.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <%- include('navigation') %>
+        <%- include('topbar') %>
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Записаться на курсы</h2>
+                    </div>
+                    <div class="course-container">
+                        <% if (availableClasses.length> 0) { %>
+                            <% for (let id=0; id < availableClasses.length; id++) { %>
+                                <div class="curse-block">
+                                    <h2>
+                                        <%= availableClasses[id].taskName %>
+                                    </h2>
+                                    <div class="curse-text-pointer"></div>
+                                    <button type="submit" class="enroll-btn"
+                                        data-taskname="<%= availableClasses[id].taskName %>">Записаться</button>
+                                </div>
+                                <% } %>
+                                    <% } else { %>
+                                        <p>No courses available.</p>
+                                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <%- include ('modalpfp') %>
+            <script src="js/enroll.js"></script>
+            <script src="js/cabinet.js"></script>    
+</body>
+
+</html>

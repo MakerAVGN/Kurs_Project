@@ -10,13 +10,26 @@ const db = require("./db.js");
 router.get("/", (req, res) => {
   const id = req.session.userID;
   db.query(
-    `SELECT resultID, taskName FROM results WHERE studentID = ?`,
+    `SELECT resultID, taskName, points, status, userPoints FROM results WHERE studentID = ?`,
     [id],
     (err, result) => {
       if (err) {
         res.status(500).json({ err });
       } else {
-        res.render("courses", { classesInfo: result });
+        db.query(
+          `SELECT * FROM students WHERE studentID = ?`,
+          [req.session.userID],
+          (err, student) => {
+            if (err) {
+              res.status(500).json({ err });
+            } else {
+              res.render("courses", {
+                classesInfo: result,
+                studentInfo: student[0],
+              });
+            }
+          }
+        );
       }
     }
   );
@@ -40,11 +53,22 @@ router.get("/:id", (req, res) => {
             if (err) {
               res.status(500).json({ err });
             } else {
-              res.render("tasks", {
-                tasksInfo: tasks,
-                courseID: courseID,
-                questionID: req.session.currentQuestionIndex,
-              });
+              db.query(
+                `SELECT * FROM students WHERE studentID = ?`,
+                [req.session.userID],
+                (err, student) => {
+                  if (err) {
+                    res.status(500).json({ err });
+                  } else {
+                    res.render("tasks", {
+                      tasksInfo: tasks,
+                      courseID: courseID,
+                      questionID: req.session.currentQuestionIndex,
+                      studentInfo: student[0],
+                    });
+                  }
+                }
+              );
             }
           }
         );
@@ -61,6 +85,10 @@ router.post("/:id/next-question", (req, res) => {
     `SELECT points, correctOption FROM tasks WHERE taskName = ? ORDER BY taskID`,
     [req.session.currentTaskName],
     (err, results) => {
+      if (err) {
+        res.status(500);
+        throw new Error(err);
+      }
       if (selectedAnswer === results[0].correctOption) {
         req.session.userPoints += results[0].points;
       }
@@ -79,9 +107,7 @@ router.post("/:id/submit-answers", (req, res) => {
       if (err) {
         return res.status(500).json({ err });
       }
-
       const currentTask = tasks[req.session.currentQuestionIndex];
-
       if (selectedAnswer === currentTask.correctOption) {
         req.session.userPoints += currentTask.points;
       }
@@ -113,11 +139,17 @@ router.post("/:id/submit-answers", (req, res) => {
             userPoints = req.session.userPoints;
             req.session.currentQuestionIndex = 0;
             req.session.userPoints = 0;
-
-            res.render(`results`, {
-              totalPoints: totalPoints,
-              userPoints: userPoints,
-            });
+            db.query(
+              `SELECT * FROM students WHERE studentID = ?`,
+              [req.session.userID],
+              (err, student) => {
+                res.render(`results`, {
+                  totalPoints: totalPoints,
+                  userPoints: userPoints,
+                  studentInfo: student[0],
+                });
+              }
+            );
           }
         }
       );
