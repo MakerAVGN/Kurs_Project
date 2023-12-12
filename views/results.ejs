@@ -12,16 +12,20 @@
 <body>
     <%- include('navigation')%>
     <%- include('topbar')%>
+    
         <!—=========================Main====================—>
                 <div class="details">
                     <div class="recentOrders">
                         <div class="cardHeader">
-                            <h1>Test Results</h1>
-                            <p>Total Points: <%= totalPoints %>
-                            </p>
-                            <p>Your Points: <%= userPoints %>
-                            </p>
+                            <div class="test-results-container">
+                                <h1>Test Results</h2>
+                            <h2>Total Points: <%= totalPoints %>
+                            </h2>
+                            <h2>Your Points: <%= userPoints %>
+                            </h2>
                             <a href="/cabinet">Back to Home</a>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
