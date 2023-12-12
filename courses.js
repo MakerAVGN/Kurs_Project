@@ -81,17 +81,19 @@ router.post("/:id/next-question", (req, res) => {
   req.session.userPoints = req.session.userPoints || 0;
   req.session.currentQuestionIndex = req.session.currentQuestionIndex + 1;
   const selectedAnswer = parseInt(req.body.answer, 10);
+  const taskID = req.body.taskID; // Получаем taskID из формы
   db.query(
-    `SELECT points, correctOption FROM tasks WHERE taskName = ? ORDER BY taskID`,
-    [req.session.currentTaskName],
+    `SELECT points, correctOption FROM tasks WHERE taskID = ?`,
+    [taskID],
     (err, results) => {
       if (err) {
         res.status(500);
         throw new Error(err);
       }
-      if (selectedAnswer === results[0].correctOption) {
+      console.log(selectedAnswer);
+      console.log(results[0].correctOption);
+      if (selectedAnswer === results[0].correctOption)
         req.session.userPoints += results[0].points;
-      }
       res.redirect(`/cabinet/courses/${req.params.id}`);
     }
   );
