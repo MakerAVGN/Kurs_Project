@@ -44,12 +44,13 @@
     flex-direction: column;
     align-items: center;
     z-index: 1;
-    background: #bca8f5;
+    background: #F1BD20;
     border: 1px solid #888;
     width: 400px;
     height: auto;
     border-radius: 41px 0 41px 41px;
     animation: slideOut 0.6s ease-in-out;
+    color: white;
 }
 
 .modal-content-sign h2 {
@@ -65,31 +66,35 @@
 .modal-content-sign input {
     width: 65%;
     height: 20px;
-    background-color: #bca8f5;
     border-color: #000;
     color: rgba(0, 0, 0, 0.7);
     text-indent: 20px;
+    border: none;
 }
 
 .btn-sign {
     border: none;
     padding: 20px 70px;
     border-radius: 69px;
-    color: #000000;
+    color: white;
     text-shadow: 1px 1px 2px rgba(3, 3, 3, 0.3);
-    background-color: #F1BD20;
+    background-color: black;
     cursor: pointer;
     transition: all 0.5s ease;
     font-size: 16px;
+    margin-top: 20px;
 }
 
 .modal-content-sign .btn-modal {
     margin-top: 100px;
+    width: 100%;
 }
 
-.btn-modal:hover {
-    background-color: rgb(255, 149, 11);
+.modal-content-sign .btn-sign:hover{
+    background-color: #a398e4;
 }
+
+
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -106,7 +111,7 @@ input::placeholder {
 
 /* Стили для поля ввода в фокусе */
 input:focus {
-    background-color: #bca8f5;
+    background-color: white;
     /* Ваш цвет фона */
 }
 
@@ -117,17 +122,15 @@ input:focus {
     cursor: pointer;
 }
 
-label,
-input,
-button {
-    margin-right: 10px;
-}
 
 form input {
-    padding: 20px;
     width: 100%;
     height: 100%;
-    border-radius: 38px;
+    border-radius: 15px;
     border: 2px #ced8df solid;
     text-align: left;
+}
+
+input, label {
+    margin-bottom: 10px;
 }

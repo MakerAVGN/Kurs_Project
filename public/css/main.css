@@ -138,12 +138,6 @@ form div {
   align-items: center;
 }
 
-label,
-input,
-button {
-  margin-right: 10px;
-}
-
 form input {
   padding: 20px;
   width: 100%;
@@ -153,9 +147,6 @@ form input {
   text-align: left;
 }
 
-form input:first-of-type {
-  margin-left: -10px;
-}
 
 form input:focus {
   border-color: #ed6316;
@@ -236,6 +227,7 @@ padding: 20px 18px;
   align-items: center;
   justify-content: center;
   color: white;
+  cursor: pointer;
 }
 
 .container-wrapper-application form .btn-main-wrapper .btn-block-button::after{
@@ -252,7 +244,7 @@ padding: 20px 18px;
 
 #second .container-wrapper-application{
   display: grid;
-  grid-template-columns: 1fr 550px;
+  grid-template-columns: 1fr 710px;
   margin: 50px 0;
   height: 500px;
   border-radius: 20px;
@@ -316,14 +308,25 @@ padding: 20px 18px;
 }
 
 .container-wrapper-guarantees .right-side {
-  height: 100%;
+  height: 500px;
   background-color:#f1bd20;
   border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+  padding: 15px 15px;
+  border: 3px solid #f1bd20;
+}
+
+.container-wrapper-guarantees .right-side p{
+  color: white;
+  font-size: 24px;
+  text-align: left;
 }
 
 .container-wrapper-guarantees .right-side img{
-  width: 100%;
-  height: 100%;
+  width: auto; 
+  object-fit: cover;
+
 }
 
 
