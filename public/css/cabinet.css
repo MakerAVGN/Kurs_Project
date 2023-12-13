@@ -213,6 +213,7 @@ body {
   object-fit: cover;
   border-radius: 50%;
   margin: 30px auto;
+  border: var(--black1) 5px solid;
 }
 
 .user-name {
@@ -563,6 +564,7 @@ body {
 }
 
 .curse-block {
+  position: relative;
   border: rgba(0, 0, 0, 0.4) 2px solid;
   border-radius: 15px;
   padding: 20px 10px 0 10px;
@@ -621,15 +623,64 @@ body {
 }
 
 .curse-text-pointer {
-  padding-top: 50px;
+  padding-top: 30px;
   position: relative;
+  line-height: 45px;
 }
 
-.curse-text-pointer span {
+.curse-text-pointer a {
+  position: relative;
+  display: inline-block;
+  padding: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 0  0 0 15px;
+  background-color: #4caf50;
+  color: #fff;
+  outline: none;
+  overflow: hidden;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.curse-text-pointer a:hover {
+  background-color: #f1bd20;
+  color: #000000;
+  transform: translateX(-2px);
+}
+
+.curse-text-pointer a:before,
+.curse-text-pointer a:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+}
+
+.curse-text-pointer a:before {
+  top: 0;
+  left: 0;
+}
+
+.curse-text-pointer a:after {
+  bottom: 0;
+  right: 0;
+}
+
+.curse-text-pointer a:hover:before,
+.curse-text-pointer a:hover:after {
+  transform: translateX(0);
+}
+
+.curse-block span {
   position: absolute;
   text-align: center;
   right: 15px;
-  bottom: -30px;
+  bottom: 15px;
   width: 40px;
   line-height: 40px;
   border-radius: 100%;
@@ -640,14 +691,8 @@ body {
   
 }
 
-.dark-mode {
-  color: white;
-  background-color: #373737;
-}
-
 .reset-form {
   max-width: 400px;
-  
 }
 
 .reset-form .form-group {

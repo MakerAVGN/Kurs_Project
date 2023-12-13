@@ -20,22 +20,23 @@
                         </div>
                         <div class="course-container">
                             <% for (let id=0; id < classesInfo.length; id++) { %>
-                                <a href="/cabinet/courses/<%= classesInfo[id].resultID %>/<%= %>">
-                                    <div class="curse-block">
-                                        <h2>
-                                            <%= classesInfo[id].taskName %>
-                                        </h2>
-                                        <div class="curse-text-pointer">
-                                            <p>
-                                                <%= classesInfo[id].status %>
-                                            </p>
-                                            <span>
-                                                <%= Math.round((classesInfo[id].userPoints / classesInfo[id].points) *
-                                                    100) %>%
-                                            </span>
-                                        </div>
+                                <div class="curse-block">
+                                    <h2>
+                                        <%= classesInfo[id].taskName %>
+                                    </h2>
+                                    <div class="curse-text-pointer">
+                                        <h4>
+                                            <%= classesInfo[id].status %>
+                                        </h4>
+                                        <a href="/cabinet/courses/<%= classesInfo[id].resultID %>/<%= %>">
+                                            Начать урок
+                                        </a>
                                     </div>
-                                </a>
+                                    <span>
+                                        <%= Math.round((classesInfo[id].userPoints / classesInfo[id].points) *
+                                            100) %>%
+                                    </span>
+                                </div>
                                 <% } %>
                         </div>
                         <%- include ('modalpfp') %>

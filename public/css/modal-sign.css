@@ -81,7 +81,6 @@
     cursor: pointer;
     transition: all 0.5s ease;
     font-size: 16px;
-    margin-top: 20px;
 }
 
 .modal-content-sign .btn-modal {
@@ -121,7 +120,6 @@ input:focus {
 label,
 input,
 button {
-    margin-top: 10px;
     margin-right: 10px;
 }
 
