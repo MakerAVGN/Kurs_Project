@@ -81,17 +81,19 @@ router.post("/:id/next-question", (req, res) => {
   req.session.userPoints = req.session.userPoints || 0;
   req.session.currentQuestionIndex = req.session.currentQuestionIndex + 1;
   const selectedAnswer = parseInt(req.body.answer, 10);
+  const taskID = req.body.taskID; // Получаем taskID из формы
   db.query(
-    `SELECT points, correctOption FROM tasks WHERE taskName = ? ORDER BY taskID`,
-    [req.session.currentTaskName],
+    `SELECT points, correctOption FROM tasks WHERE taskID = ?`,
+    [taskID],
     (err, results) => {
       if (err) {
         res.status(500);
         throw new Error(err);
       }
-      if (selectedAnswer === results[0].correctOption) {
+      console.log(selectedAnswer);
+      console.log(results[0].correctOption);
+      if (selectedAnswer === results[0].correctOption)
         req.session.userPoints += results[0].points;
-      }
       res.redirect(`/cabinet/courses/${req.params.id}`);
     }
   );
@@ -99,18 +101,14 @@ router.post("/:id/next-question", (req, res) => {
 
 router.post("/:id/submit-answers", (req, res) => {
   const selectedAnswer = parseInt(req.body.answer, 10);
-
   db.query(
     `SELECT taskID, correctOption, points FROM tasks WHERE taskName = ? ORDER BY taskID`,
     [req.session.currentTaskName],
     (err, tasks) => {
-      if (err) {
-        return res.status(500).json({ err });
-      }
+      if (err) res.status(500).json({ err });
       const currentTask = tasks[req.session.currentQuestionIndex];
-      if (selectedAnswer === currentTask.correctOption) {
+      if (selectedAnswer === currentTask.correctOption)
         req.session.userPoints += currentTask.points;
-      }
       db.query(
         `UPDATE results SET status = ?, userPoints = ? WHERE taskName = ? AND studentID = ?`,
         [
@@ -120,21 +118,17 @@ router.post("/:id/submit-answers", (req, res) => {
           req.session.userID,
         ],
         (err) => {
-          if (err) {
-            return res.status(500).json({ err });
-          }
+          if (err) return res.status(500).json({ err });
 
           req.session.currentQuestionIndex++;
-
-          if (req.session.currentQuestionIndex < tasks.length) {
+          if (req.session.currentQuestionIndex < tasks.length)
             res.redirect(`/cabinet/courses/${req.params.id}/next-question`);
-          } else {
+          else {
             // Все вопросы пройдены, можно обновить общее количество баллов
             const totalPoints = tasks.reduce(
               (sum, task) => sum + task.points,
               0
             );
-
             // Обновление сессии
             userPoints = req.session.userPoints;
             req.session.currentQuestionIndex = 0;
@@ -143,11 +137,14 @@ router.post("/:id/submit-answers", (req, res) => {
               `SELECT * FROM students WHERE studentID = ?`,
               [req.session.userID],
               (err, student) => {
-                res.render(`results`, {
-                  totalPoints: totalPoints,
-                  userPoints: userPoints,
-                  studentInfo: student[0],
-                });
+                if (err) res.status(500).json({ err });
+                else {
+                  res.render(`results`, {
+                    totalPoints: totalPoints,
+                    userPoints: userPoints,
+                    studentInfo: student[0],
+                  });
+                }
               }
             );
           }

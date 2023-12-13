@@ -14,72 +14,73 @@
     <body>
         <%- include('navigation') %>
             <%- include('topbar') %>
-            
+
                 <!—=========================Main====================—>
-                        
-                                <% if (tasksInfo.length> 0) { %>
-                                    <div class="taskContainer" >
-                                    <div class="task-text">
-                                    <h2>
-                                        <%= tasksInfo[questionID].taskName %>
-                                    </h2>
-                                    <p>Points: <%= tasksInfo[questionID].points %>
-                                    </p>
-                                    </div>
+
+                    <% if (tasksInfo.length> 0) { %>
+                        <div class="taskContainer">
+                            <div class="task-text">
+                                <h2>
+                                    <%= tasksInfo[questionID].taskName %>
+                                </h2>
+                                <p>Количество очков: <%= tasksInfo[questionID].points %>
+                                </p>
+                            </div>
 
 
-                                    <div class="text-description">
-                                    <p>
-                                        <%= tasksInfo[questionID].taskDescription %>
-                                    </p>
-                                    </div>
-                                    <form class="task-form"
-                                        action="<%= (questionID === tasksInfo.length - 1) ? `/cabinet/courses/${courseID}/submit-answers` : `/cabinet/courses/${courseID}/next-question` %>"
-                                        method="POST">
-                                        <div class="task-answers">
-                                        <% const options=JSON.parse(tasksInfo[questionID].options); %>
-                                            <% options.options.forEach((option, index)=> { %>
-                                            
-                                                <label>
-                                                    <input type="radio" name="answer" value="<%= index %>" required>
-                                                    <%= option %>
-                                                </label>
-                                            
-                                                <% }); %>
-                                            </div>
-                                            <div class="task-btn-container">
-                                                    <button type="submit"  class="task-btn">
-                                                        <%= (questionID===tasksInfo.length - 1) ? "Submit Answers"
-                                                            : "Next Question" %>
-                                                    </button>
-                                                </div>
-                                    </form>
-                                    <% } else { %>
-                                        <p>No tasks available.</p>
-                                        <% } %>
-                                        
+                            <div class="text-description">
+                                <p>
+                                    <%= tasksInfo[questionID].taskDescription %>
+                                </p>
+                            </div>
+                            <form class="task-form"
+                                action="<%= (questionID === tasksInfo.length - 1) ? `/cabinet/courses/${courseID}/submit-answers` : `/cabinet/courses/${courseID}/next-question` %>"
+                                method="POST">
+                                <div class="task-answers">
+                                    <% const options=JSON.parse(tasksInfo[questionID].options); %>
+                                        <% options.options.forEach((option, index)=> { %>
+                                            <label>
+                                                <input type="radio" name="answer" value="<%= index %>" required>
+                                                <%= option %>
+                                            </label>
+                                            <% }); %>
+                                </div>
+                                <!-- Добавленное скрытое поле для передачи taskID -->
+                                <input type="hidden" name="taskID" value="<%= tasksInfo[questionID].taskID %>">
+                                <div class="task-btn-container">
+                                    <button type="submit" class="task-btn">
+                                        <%= (questionID===tasksInfo.length - 1) ? "Отправить ответы"
+                                            : "Следующий вопрос" %>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <% } else { %>
+                                <p>Нет доступных заданий.</p>
+                                <% } %>
+
     </body>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-  const labels = document.querySelectorAll('.task-form label');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const labels = document.querySelectorAll('.task-form label');
 
-  labels.forEach(function(label) {
-    label.addEventListener('click', function() {
-      // Удалить класс 'selected' у всех label
-      labels.forEach(function(otherLabel) {
-        otherLabel.classList.remove('selected');
-      });
+            labels.forEach(function (label) {
+                label.addEventListener('click', function () {
+                    // Удалить класс 'selected' у всех label
+                    labels.forEach(function (otherLabel) {
+                        otherLabel.classList.remove('selected');
+                    });
 
-      // Добавить класс 'selected' к текущему label
-      label.classList.add('selected');
+                    // Добавить класс 'selected' к текущему label
+                    label.classList.add('selected');
 
-      // Пометить соответствующий input как выбранный
-      const input = label.querySelector('input');
-      input.checked = true;
-    });
-  });
-});
-</script>
+                    // Пометить соответствующий input как выбранный
+                    const input = label.querySelector('input');
+                    input.checked = true;
+                });
+            });
+        });
+    </script>
 
 </html>
