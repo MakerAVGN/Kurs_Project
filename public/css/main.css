@@ -60,6 +60,7 @@
 
 .image-block {
   margin: 45px 0;
+  padding-top: 50px;
 }
 .image-block img {
   border-radius: 16px;
@@ -101,10 +102,27 @@
 
 .container-wrapper.two {
   display: grid;
-  grid-template-columns: 2fr 1fr 3fr;
+  grid-template-columns: 4fr 1fr 3fr;
   grid-gap: 20px;
 }
 
+.container-wrapper.two .text-block h2{
+  background-color: #F1BD20;
+  text-align: center;
+  padding: 15px 10px;
+  border-radius: 15px;
+  color: white;
+  font-size: 28px;
+}
+
+.container-wrapper.two .text-block h3{
+  text-align: right;
+  font-size: 28px;
+  padding: 25px 15px;
+  border: 3px solid #f1bd20;
+  border-radius: 15px;
+  margin: 20px 0;
+}
 .btn-main {
   border: none;
   padding: 20px 38px;

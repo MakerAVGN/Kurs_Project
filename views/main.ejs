@@ -45,7 +45,7 @@
                 <div class="btn-main-wrapper">
                   <button type="submit" class="btn-block-button">
                     Отправить заявку
-                  </button>            
+                  </button>
                 </div>
               <p class="agreement">Нажимая на кнопку, вы принимаете условия политики конфиденциальности</p>
               </form>
@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        
+
           <div class="width-container">
             <div class="container-wrapper-guarantees">
               <div class="left-side">
@@ -69,32 +69,34 @@
               </div>
             </div>
           </div>
-        <div class="main-container">
+        
           <div class="width-container">
             <div class="container-wrapper two">
-              <div class="text-block">
-                <h2>Что пишут наши ученики</h2>
-                <p>
-                  87% участников приходят по личной рекомендации от друзей. А
-                  каждый 3 сдает ЕГЭ на 90+ баллов!
-                </p>
-                <button class="btn-main" id="review">Читать отзывы</button>
-              </div>
               <div class="image-block">
                 <img
                   src="https://plus.unsplash.com/premium_photo-1682310144714-cb77b1e6d64a?auto=format&fit=crop&q=80&w=2112&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Описание изображения"
                 />
               </div>
+              <div class="text-block">
+                <h2>Что пишут наши ученики</h2>
+                <h3> Наш курс помогает даже двоечникам
+                </h3>
+                <h3> Очень интересный и увлекательный!
+                </h3>
+                <h3> Есть чувство соперничества
+                </h3>
+                <h3> Не скучно учить!
+                </h3>
+              </div>
             </div>
           </div>
-        </div>
         <div id="second" class="width-container">
           <div class="container-wrapper-application">
             <div class="right-block">
               <h3>Пройдите бесплатную консультацию знаний для старта обучения</h3>
               <p class="text-right-block">Оставьте заявку на обратный звонок</p>
-              <form method="POST">
+              <form method="POST" action="/contactInfo">
                 <div class="btn-block">
                   <div >
                     <label htmlFor="name"></label>
@@ -119,7 +121,7 @@
                 <div class="btn-main-wrapper">
                   <button type="submit" class="btn-block-button">
                     Отправить заявку
-                  </button>            
+                  </button>
                 </div>
               <p class="agreement">Нажимая на кнопку, вы принимаете условия политики конфиденциальности</p>
               </form>
@@ -132,5 +134,57 @@
           </div>
         </div>
       </main>
+      <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const contactForm = document.querySelector("form");
+
+  contactForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(contactForm);
+
+    // Check if any of the fields are empty
+    let isEmpty = false;
+    formData.forEach((value) => {
+      if (value.trim() === "") {
+        isEmpty = true;
+      }
+    });
+
+    if (isEmpty) {
+      console.log("Please fill in all fields");
+      return;
+    }
+
+    fetch("/contactInfo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Response from server:", data);
+
+        if (data.err) {
+          console.error(data.err);
+        } else {
+          console.log("Contact information submitted successfully");
+          // Optionally, you can redirect or perform other actions here
+        }
+      })
+      .catch((error) => {
+        console.error("Error submitting contact information:", error);
+      });
+  });
+});
+
+      </script>
 </body>
 </html>

@@ -50,11 +50,11 @@ connection.query(`CREATE TABLE IF NOT EXISTS tasks (
   PRIMARY KEY (taskID)
 )`);
 
-connection.query(`CREATE TABLE IF NOT EXISTS consultation (
-  id_consultation INT PRIMARY KEY,
+connection.query(`CREATE TABLE IF NOT EXISTS contacts (
+  contactID INT PRIMARY KEY,
   name VARCHAR(255),
-  number VARCHAR(20)
-);`)
+  phone VARCHAR(20)
+);`);
 
 // connection.query(
 //   `INSERT INTO results VALUES (1,1,'Английский язык 60+',25,'Пройден', 0), (2,1,'Английский язык 70+',30,'Пройден',10), (3,2,'Английский язык 60+',25,'Заброшен',0), (4,1,'Английский язык 80+',50,'Приостановлен',0), (5,2,'Английский язык 70+',30,'Заброшен',0), (6,3,'Английский язык 50+',15,'Выполняется',0), (7,2,'Английский язык 50+',15,'Пройден',0), (8,1,'Английский язык 50+',15,'Пройден',0);`

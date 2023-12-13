@@ -29,7 +29,7 @@ app.set("view engine", "ejs");
 app.use("/", mainRoutes);
 
 // Database connection
-require("./db.js");
+const db = require("./db.js");
 
 app.get("/admin", (req, res) => {
   res.redirect("https://app.forestadmin.com/");
@@ -38,6 +38,42 @@ app.get("/admin", (req, res) => {
 app.use("/", log_reg);
 
 app.use("/cabinet/", cabinet);
+
+app.post("/contactInfo", (req, res) => {
+  const { name, phone } = req.body;
+  db.query(
+    `SELECT contactID FROM contacts ORDER BY contactID`,
+    (err, results) => {
+      console.log(results);
+      if (err) res.status(500).json({ err });
+      let nextContactID;
+      if (results.length === 0 || results[0].contactID !== 0) {
+        // Если база данных пуста или первый элемент не 0, начинаем с 0
+        nextContactID = 0;
+      } else {
+        // Ищем первый пропущенный номер в последовательности
+        for (let i = 0; i < results.length; i++) {
+          if (results[i].contactID !== i) {
+            nextContactID = i;
+            break;
+          }
+        }
+        // Если пропущенный номер не найден, используем следующий последовательный ID
+        if (nextContactID === undefined) {
+          nextContactID = results.length;
+        }
+      }
+      db.query(
+        `INSERT INTO contacts (contactID, name, phone) VALUES (?, ?, ?)`,
+        [nextContactID, name, phone],
+        (err) => {
+          if (err) res.status(500).json({ err });
+          else res.render("index");
+        }
+      );
+    }
+  );
+});
 
 app.use((req, res, next) => {
   res.status(404).render("error404", { error: "Page not found" });
