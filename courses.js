@@ -90,8 +90,6 @@ router.post("/:id/next-question", (req, res) => {
         res.status(500);
         throw new Error(err);
       }
-      console.log(selectedAnswer);
-      console.log(results[0].correctOption);
       if (selectedAnswer === results[0].correctOption)
         req.session.userPoints += results[0].points;
       res.redirect(`/cabinet/courses/${req.params.id}`);
